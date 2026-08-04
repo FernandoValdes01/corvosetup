@@ -1,0 +1,4 @@
+ESP_PATH="@ESP_PATH@"
+KERNEL_CMDLINE[default]+="@KERNEL_CMDLINE@"
+BOOT_ORDER="*, *lts, *fallback, Snapshots"
+ENABLE_ENROLL_LIMINE_CONFIG=yes
