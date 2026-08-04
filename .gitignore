@@ -1,0 +1,15 @@
+# Generated and private files
+*.bak
+*.old
+*.tmp
+__pycache__/
+*.py[cod]
+node_modules/
+.cache/
+
+# Never commit Secure Boot material or machine identity.
+keys/
+*.key
+*.pem
+*.p12
+machine-id
