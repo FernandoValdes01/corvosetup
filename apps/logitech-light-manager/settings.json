@@ -1,0 +1,13 @@
+{
+  "keyboard": {
+    "enabled": true,
+    "zones": ["#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF", "#FFFFFF"]
+  },
+  "headset": {
+    "enabled": false,
+    "sync": true,
+    "bottom": "#00AEEF",
+    "top": "#00AEEF",
+    "brightness": 100
+  }
+}
