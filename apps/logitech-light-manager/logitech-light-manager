@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+exec /usr/bin/python "$HOME/.local/lib/logitech-light-manager/app.py" "$@"

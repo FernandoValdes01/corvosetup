@@ -1,0 +1,5 @@
+# Logitech G213 lighting interface
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c336", MODE="0660", TAG+="uaccess"
+
+# Logitech G733 headset control interface
+SUBSYSTEM=="hidraw", ATTRS{idVendor}=="046d", ATTRS{idProduct}=="0ab5", MODE="0660", TAG+="uaccess"

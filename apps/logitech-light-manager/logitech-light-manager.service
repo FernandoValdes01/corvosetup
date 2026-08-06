@@ -1,0 +1,12 @@
+[Unit]
+Description=Mantener activo el perfil de luces Logitech
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/logitech-light-manager --daemon
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

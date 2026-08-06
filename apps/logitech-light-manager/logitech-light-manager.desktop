@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Luces Logitech
+Comment=Administrar colores del teclado G213 y audifonos G733
+Exec=logitech-light-manager
+Icon=logitech-light-manager
+Terminal=false
+Categories=Settings;HardwareSettings;
+StartupNotify=true
