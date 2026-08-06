@@ -1,0 +1,108 @@
+--- a/io.github.shorin_kiwata.NiriDisplaySettings.desktop
++++ b/io.github.shorin_kiwata.NiriDisplaySettings.desktop
+@@ -1,10 +1,12 @@
+ [Desktop Entry]
+ Type=Application
+ Name=Niri Display Settings
++Name[es]=Configuracion de pantallas de Niri
+ Name[zh_CN]=Niri显示设置
+ Comment=Configure monitors for the niri compositor
++Comment[es]=Configura y organiza las pantallas en Niri
+ Comment[zh_CN]=为 niri 合成器配置显示器
+ Exec=niri-display-settings
+ Icon=niri-display-settings
+ Categories=Settings;HardwareSettings;
+-Keywords=monitor;display;output;niri;
++Keywords=monitor;display;output;niri;pantalla;configuracion;
+--- a/niri_display_settings/i18n.py
++++ b/niri_display_settings/i18n.py
+@@ -1,6 +1,57 @@
+-"""Tiny built-in translation table (English base, Simplified Chinese)."""
++"""Tiny built-in translation table (English base, Spanish and Simplified Chinese)."""
+ 
+ import locale
+ import os
+ 
++_ES = {
++    "Display Settings": "Configuracion de pantallas",
++    "Apply": "Aplicar",
++    "Refresh state": "Actualizar estado",
++    "Arrangement": "Disposicion",
++    "Drag monitors to rearrange them": "Arrastra las pantallas para colocarlas",
++    "Monitor": "Pantalla",
++    "Enabled": "Activada",
++    "Resolution": "Resolucion",
++    "Refresh Rate": "Frecuencia de actualizacion",
++    "Scale": "Escala",
++    "Transform": "Orientacion",
++    "Variable Refresh Rate": "Frecuencia de actualizacion variable (VRR)",
++    "Focus at startup": "Principal al iniciar",
++    "Only one monitor can be focused at startup": "Solo una pantalla puede ser la principal al iniciar",
++    "Off": "Desactivada",
++    "On": "Activada",
++    "On demand": "Segun demanda",
++    "Enable VRR only when an application requests it": "Activa VRR solo cuando una aplicacion lo solicite",
++    "Normal": "Horizontal",
++    "Configuration File": "Archivo de configuracion",
++    "Output blocks are written to this file": "La configuracion de las pantallas se guarda en este archivo",
++    "Choose…": "Elegir…",
++    "Choose config file": "Elegir archivo de configuracion",
++    "This file is not included from config.kdl": "Este archivo no esta incluido desde config.kdl",
++    "Fix": "Corregir",
++    "Keep these display settings?": "Quieres conservar esta configuracion de pantallas?",
++    "Settings will revert in {n} seconds.": "Los cambios se revertiran en {n} segundos.",
++    "Revert": "Revertir",
++    "Keep": "Conservar",
++    "Settings reverted": "Se revirtio la configuracion",
++    "Settings applied and saved": "Configuracion aplicada y guardada",
++    "Backup saved as {path}": "Copia de seguridad guardada en {path}",
++    "Validation failed": "Fallo la validacion",
++    "The config file was not modified. niri reported:": "No se modifico el archivo. Niri informo:",
++    "Config restored from backup. niri reported:": "Se restauro la copia de seguridad. Niri informo:",
++    "Failed to apply preview": "No se pudo aplicar la vista previa",
++    "Cannot disable the last enabled monitor": "No se puede desactivar la ultima pantalla activa",
++    "Include line added to config.kdl (backup: {path})": "Se anadio el include a config.kdl (copia: {path})",
++    "No changes to apply": "No hay cambios que aplicar",
++    "niri is not running or not reachable": "Niri no esta ejecutandose o no responde",
++    "Not connected": "No conectada",
++    "_transform_90": "90 grados",
++    "_transform_180": "180 grados",
++    "_transform_270": "270 grados",
++    "_transform_flipped": "Volteada",
++    "_transform_flipped-90": "Volteada + 90 grados",
++    "_transform_flipped-180": "Volteada + 180 grados",
++    "_transform_flipped-270": "Volteada + 270 grados",
++}
++
+ _ZH = {
+@@ -65,22 +116,24 @@
+ }
+ 
+ 
+-def _is_zh() -> bool:
++def _language() -> str:
+     for var in ("LC_ALL", "LC_MESSAGES", "LANG"):
+         v = os.environ.get(var)
+         if v:
+-            return v.lower().startswith("zh")
++            return v.lower().split("_")[0]
+     try:
+         loc = locale.getlocale()[0]
+-        return bool(loc) and loc.lower().startswith("zh")
++        return loc.lower().split("_")[0] if loc else "en"
+     except Exception:
+-        return False
++        return "en"
+ 
+ 
+-_ZH_ACTIVE = _is_zh()
++_LANGUAGE = _language()
+ 
+ 
+ def _(s: str) -> str:
+-    if _ZH_ACTIVE:
++    if _LANGUAGE == "es":
++        return _ES.get(s, _EN_SPECIAL.get(s, s))
++    if _LANGUAGE == "zh":
+         return _ZH.get(s, _EN_SPECIAL.get(s, s))
+     return _EN_SPECIAL.get(s, s)
