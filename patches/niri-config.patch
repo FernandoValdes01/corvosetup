@@ -1,0 +1,68 @@
+--- a/config.kdl
++++ b/config.kdl
+@@ -6,3 +6,16 @@
+ include "./cfg/layout.kdl"
+ include "./cfg/rules.kdl"
+ include "./cfg/misc.kdl"
++
++include "noctalia.kdl"
++output "HDMI-A-1" {
++    mode "1920x1080@143.981"
++    scale 1
++    position x=0 y=0
++    focus-at-startup
++}
++output "eDP-2" {
++    mode "2560x1600@165.000"
++    scale 1.9
++    position x=1920 y=122
++}
+--- a/cfg/input.kdl
++++ b/cfg/input.kdl
+@@ -4,9 +4,7 @@
+ input {
+     keyboard {
+         xkb {
+-            //If you want to overwrite your keyboard layout,
+-            // uncomment the line below and change the layout accordingly.
+-            //layout "us" // Use the American keyboard layout
++            layout "latam"
+         }
+         numlock // Enable numlock on startup
+     }
+--- a/cfg/keybinds.kdl
++++ b/cfg/keybinds.kdl
+@@ -13,7 +13,9 @@
+     Mod+B                               hotkey-overlay-title="Open Browser: firefox" { spawn "firefox"; }
+ 
+     // --- Noctalia ---
++    Mod+D                               hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
+     Mod+Shift+Return                    hotkey-overlay-title="Open Wallpaper Selector: noctalia wallpaper toggle" { spawn-sh "noctalia msg panel-toggle wallpaper"; }
++    Mod+P                               hotkey-overlay-title="Configurar pantallas" { spawn "niri-display-settings"; }
+     Mod+S                               hotkey-overlay-title="Open Control Center: noctalia controlCenter" { spawn-sh "noctalia msg panel-toggle control-center"; }
+     Mod+Shift+S                         hotkey-overlay-title="Open Settings: noctalia settings" { spawn-sh "noctalia msg settings-toggle"; }
+     Mod+CTRL+Return                     hotkey-overlay-title="Open App Launcher: noctalia launcher" { spawn-sh "noctalia msg panel-toggle launcher"; }
+@@ -146,6 +148,8 @@
+     Mod+M                               { maximize-window-to-edges; }
+ 
+     // ─── Screenshots ───
++    Print                               hotkey-overlay-title="Select Screenshot" { spawn-sh "selection=\"$(slurp)\"; [ -n \"$selection\" ] || exit; grim -g \"$selection\" - | wl-copy"; }
++    Shift+Print                         hotkey-overlay-title="Annotate Screenshot" { spawn-sh "selection=\"$(slurp)\"; [ -n \"$selection\" ] || exit; grim -g \"$selection\" - | satty --filename - --initial-tool brush --copy-command wl-copy --actions-on-enter save-to-clipboard"; }
+     CTRL+Shift+1                        { screenshot; }
+     CTRL+Shift+2                        { screenshot-screen; }
+     CTRL+Shift+3                        { screenshot-window; }
+--- a/cfg/rules.kdl
++++ b/cfg/rules.kdl
+@@ -10,6 +10,12 @@
+         }
+     }
+ 
++    // Android Studio's main window has no maximize button under Niri.
++    window-rule {
++        match app-id=r#"^jetbrains-studio$"# title="Android Studio"
++        open-maximized true
++    }
++
+     // Floating Noctalia settings window.
+     window-rule {
+         match app-id="dev.noctalia.Noctalia"
