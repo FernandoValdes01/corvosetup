@@ -1,0 +1,39 @@
+[shell]
+polkit_agent = true
+font_family = "Monocraft"
+
+[wallpaper]
+directory = "~/Pictures/corvosetup-wallpapers"
+
+[wallpaper.automation]
+enabled = true
+interval_seconds = 3600
+order = "alphabetical"
+recursive = false
+
+[theme.templates]
+builtin_ids = ["niri", "alacritty"]
+
+[bar.default]
+end = ["media", "network", "volume", "battery", "cpu", "ram", "codex", "session"]
+widget_spacing = 22
+
+[plugins]
+enabled = ["corvo/codex-usage"]
+
+[widget.media]
+album_art_only = true
+
+[widget.network]
+show_label = false
+
+[widget.volume]
+show_label = true
+
+[widget.battery]
+display_mode = "glyph"
+show_label = true
+label_content = "percent"
+
+[widget.codex]
+type = "corvo/codex-usage:codex"

@@ -1,0 +1,12 @@
+id = "corvo/codex-usage"
+name = "Codex Usage"
+version = "1.0.0"
+plugin_api = 3
+author = "corvo"
+icon = "brand-openai"
+description = "Weekly Codex usage remaining."
+dependencies = ["codex", "jq", "timeout"]
+
+[[widget]]
+id = "codex"
+entry = "codex.luau"
