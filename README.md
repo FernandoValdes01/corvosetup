@@ -53,14 +53,11 @@ Las claves privadas de `sbctl`, el `machine-id`, UUID de discos y archivos gener
 
 Antes de usar `scripts/secure-boot.sh`, el firmware debe estar en Setup Mode y debe existir un medio USB de recuperacion. El script prepara y firma Limine antes de enrolar las claves como ultimo paso irreversible.
 
-## Hardware actual
+## Configuracion de Logitech
 
-- Logitech G213: USB `046d:c336`.
-- Logitech G733: USB `046d:0ab5`.
-- Samsung LC24RG50 por `HDMI-A-1`: 1920x1080 a 143.981 Hz.
-- Pantalla interna por `eDP-2`: 2560x1600 a 165 Hz, escala 1.9.
-
-Los nombres de salida pueden cambiar en otra PC. Si eso ocurre, abrir `Niri Display Settings` y guardar una disposicion nueva.
+El modulo `logitech` instala y habilita Logitech Light Manager para configurar
+perifericos Logitech compatibles. Sus ajustes se guardan localmente y pueden
+adaptarse a cada equipo sin versionar identificadores ni detalles del hardware.
 
 ## Recursos visuales
 
