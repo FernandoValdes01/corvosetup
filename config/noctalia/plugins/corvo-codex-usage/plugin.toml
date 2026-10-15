@@ -1,10 +1,10 @@
 id = "corvo/codex-usage"
 name = "Codex Usage"
-version = "1.0.0"
+version = "1.2.0"
 plugin_api = 3
 author = "corvo"
 icon = "brand-openai"
-description = "Weekly Codex usage remaining."
+description = "Codex usage remaining with live reset countdowns."
 dependencies = ["codex", "jq", "timeout"]
 
 [[widget]]
