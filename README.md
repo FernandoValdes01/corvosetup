@@ -1,78 +1,66 @@
-# corvosetup
+<div align="center">
+  <h1>CorvoSetup</h1>
+  <p>Un setup personal de Linux, versionado para restaurarlo con control.</p>
+  <p><a href="#inicio-rápido">Inicio rápido</a> · <a href="#módulos">Módulos</a> · <a href="docs/restore.md">Restauración</a> · <a href="docs/agents.md">Agentes y skills</a> · <a href="docs/security.md">Privacidad</a></p>
+</div>
 
-Configuracion reproducible de CachyOS con Niri y Noctalia.
+## Inicio rápido
 
-Este repositorio guarda configuraciones, codigo propio y scripts de instalacion. Clonarlo no cambia el sistema: los cambios solo se aplican al ejecutar explicitamente `bash install.sh`.
-
-## Componentes
-
-1. Paquetes base para CachyOS.
-2. Limine, Snapper y procedimiento seguro de Secure Boot.
-3. Logitech Light Manager para teclado G213 y audifonos G733.
-4. Niri con teclado latinoamericano, perfil de monitores y GUI de pantallas en espanol.
-5. Barra Noctalia, fuente Monocraft y widget de uso de Codex.
-6. Skills globales para OpenCode.
-
-## Uso
-
-Revisar sin ejecutar cambios:
+Clona el repositorio y prueba primero solo los módulos que necesitas:
 
 ```bash
-bash install.sh --dry-run
-```
-
-Aplicar todo:
-
-```bash
-bash install.sh
-```
-
-Aplicar un solo modulo:
-
-```bash
-bash install.sh --only logitech
-bash install.sh --only niri
-bash install.sh --only noctalia
+git clone https://github.com/FernandoValdes01/corvosetup.git
+cd corvosetup
+bash install.sh --only skills --dry-run
 bash install.sh --only skills
 ```
 
-Modulos validos: `packages`, `limine`, `logitech`, `niri`, `noctalia` y `skills`.
+El modo normal presenta un resumen y pide escribir `APLICAR` antes de continuar. No ejecutes `install.sh` como `root` ni con `sudo`. Para una máquina nueva que no necesita cambios de arranque, el orden mínimo recomendado es `skills`, `mcp`, `agents` y después `desktop`, `niri` o `noctalia` según el entorno. El módulo `limine` queda fuera de ese flujo.
 
-El instalador pide confirmacion antes de ejecutar. Los archivos existentes se respaldan con una extension `.corvosetup.bak`.
-Debe ejecutarse como usuario normal, nunca mediante `sudo`. Las versiones observadas en la maquina de origen estan en `packages/current-versions.txt`; son referencia de diagnostico porque CachyOS es rolling-release.
+La restauración no instala todo el software externo. Revisa los requisitos y pasos de [restauración](docs/restore.md) antes de aplicar más módulos.
 
-## Secure Boot
+## Qué contiene
 
-El instalador normal configura Limine, pero no crea ni enrola claves de Secure Boot. Esa operacion depende del firmware y se ejecuta por separado:
+Snapshots públicos de configuración de escritorio y desarrollo, herramientas locales y scripts por componente. El repo no sincroniza automáticamente cambios desde el HOME. El usuario revisa, valida y decide qué versionar y subir.
 
-```bash
-bash scripts/secure-boot.sh
-```
+### Módulos
 
-Las claves privadas de `sbctl`, el `machine-id`, UUID de discos y archivos generados de `/boot` nunca se guardan en este repositorio. El instalador detecta la ESP, reutiliza la linea activa de `/proc/cmdline` y exige una configuracion Snapper llamada `root`; aborta antes de escribir si esas condiciones no se cumplen.
+Usa `bash install.sh --only MODULO`; añade `--dry-run` para revisar las acciones antes de aplicarlas. Sin `--only`, recorre los módulos en este orden:
 
-Antes de usar `scripts/secure-boot.sh`, el firmware debe estar en Setup Mode y debe existir un medio USB de recuperacion. El script prepara y firma Limine antes de enrolar las claves como ultimo paso irreversible.
+| Módulo | Función |
+| --- | --- |
+| `packages` | Instala paquetes de Arch/CachyOS definidos por el setup. |
+| `limine` | Genera configuración con datos del equipo y configura sincronización Snapper. No modifica Secure Boot. |
+| `logitech` | Instala Logitech Light Manager, su servicio de usuario y regla udev. |
+| `niri` | Restaura el snapshot portable, Niri Display Settings en español y el atajo de capturas. |
+| `noctalia` | Instala configuración, plugin Codex local y fuente Monocraft. |
+| `desktop` | Restaura Alacritty, Fish, ajustes T3 Code, lanzadores y la unidad de notificaciones T3. |
+| `skills` | Copia 29 skills a la biblioteca local y crea enlaces para los clientes compatibles. |
+| `agents` | Fusiona perfiles y configuración Codex/OpenCode. Instala CLI fijadas solo si falta alguno de los clientes. |
+| `mcp` | Instala servidores MCP Draw.io, JFLAP y Packet Tracer, y sus lanzadores locales. |
 
-## Configuracion de Logitech
+### Estructura
 
-El modulo `logitech` instala y habilita Logitech Light Manager para configurar
-perifericos Logitech compatibles. Sus ajustes se guardan localmente y pueden
-adaptarse a cada equipo sin versionar identificadores ni detalles del hardware.
+| Ruta | Contenido |
+| --- | --- |
+| `apps/` | Logitech Light Manager y código fuente del servidor MCP JFLAP. |
+| `config/` | Snapshots `niri`, `alacritty`, `fish`, `noctalia`, `t3code`, `codex`, `opencode`, `agents`, `skills` y `mcp`. |
+| `skills/` | Biblioteca común de 29 skills con sus recursos. |
+| `scripts/` | Instaladores por módulo, restaurador de agentes, verificaciones y lanzadores MCP. |
+| `patches/` | Parche de idioma de Niri Display Settings. |
+| `tests/` | Comprobaciones estáticas y pruebas de regresión. |
+| `docs/` | Guías de restauración, agentes/skills y seguridad. |
 
-## Recursos visuales
+## Qué debes configurar en cada PC
 
-`scripts/05-noctalia.sh` descarga Monocraft 4.2.1 desde su proyecto oficial y verifica su SHA-256. Los fondos no se versionan porque son archivos grandes; se pueden colocar en `~/Pictures/corvosetup-wallpapers`. No se conservaron URLs verificables de las siete descargas originales, por lo que el instalador no descarga sustitutos arbitrarios.
+Los perfiles de monitores quedan fuera del snapshot. Niri conserva el `cfg/display.kdl` local existente e instala la plantilla portátil solo si falta. Consulta `niri msg outputs` para configurarlo en ese hardware.
 
-## Verificacion
+El módulo `desktop` instala el servicio de notificaciones T3, pero no lo activa automáticamente. Para habilitarlo cuando T3 Code esté instalado, ejecuta `systemctl --user daemon-reload && systemctl --user enable --now t3code-notify.service`. El monitor consulta la base local de T3 en modo solo lectura; no copia la base ni el historial.
 
-La comprobacion estatica, que no instala nada, se ejecuta con:
+El vidrio de T3 Code usa opacidad `0.86` y blur Niri, y requiere una versión de Niri compatible con blur. Alacritty usa opacidad `0.7`. Las versiones de paquetes en `packages/current-versions.txt` son referencias del snapshot, no un pin del repositorio rolling.
 
-```bash
-bash tests/static-checks.sh
-```
+No se copian credenciales, sesiones, historiales, favoritos/modelos personales, bases SQLite, backups ni rutas a proyectos de confianza. Codex, OpenCode y Linear deben autenticarse otra vez; los conectores/plugins remotos se reactivan en cada equipo. Consulta [privacidad y seguridad](docs/security.md).
 
-Despues de una instalacion real puede usarse:
+## Cambiar el setup
 
-```bash
-bash scripts/verify.sh
-```
+Edita los archivos del repo, revisa `git diff`, prueba el módulo afectado y ejecuta los chequeos de secretos. Crea commits que puedas revisar. El `push` siempre es una decisión explícita; no hay sincronización automática desde el equipo.
