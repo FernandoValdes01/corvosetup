@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -u
+
+# Focus the existing T3 Code window when possible; otherwise launch T3 Code.
+t3_window_id=$(niri msg -j windows 2>/dev/null \
+    | jq -r '.[] | select(.app_id == "t3code") | .id' \
+    | head -n 1)
+
+if [[ -n "$t3_window_id" ]]; then
+    exec niri msg action focus-window --id "$t3_window_id"
+fi
+
+exec t3code

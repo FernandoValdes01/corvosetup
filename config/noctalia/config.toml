@@ -15,7 +15,10 @@ recursive = false
 builtin_ids = ["niri", "alacritty"]
 
 [bar.default]
-end = ["media", "network", "volume", "battery", "cpu", "ram", "codex", "session"]
+background_opacity = 0.55
+border = "#a7c8ff40"
+border_width = 1.0
+end = ["media", "cpu", "ram", "network", "volume", "battery", "codex", "session"]
 widget_spacing = 22
 
 [plugins]
@@ -37,3 +40,16 @@ label_content = "percent"
 
 [widget.codex]
 type = "corvo/codex-usage:codex"
+
+[widget.clock]
+anchor = true
+
+[widget.cpu]
+stat = "cpu_usage"
+show_value = false
+visualization = "none"
+
+[widget.ram]
+stat = "ram_used"
+show_value = false
+visualization = "none"

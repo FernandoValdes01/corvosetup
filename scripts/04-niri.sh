@@ -5,18 +5,10 @@ source "$ROOT_DIR/scripts/lib.sh"
 require_authorized_install
 
 require_command git
-require_command patch
 require_command niri
 
-skel=/etc/skel/.config/niri
-[[ -d "$skel" ]] || { printf 'No existe %s; instala cachyos-niri-noctalia.\n' "$skel" >&2; exit 1; }
-
-temporary="$(mktemp -d)"
-trap 'rm -rf -- "$temporary"' EXIT
-cp -a -- "$skel/." "$temporary/"
-patch --silent -d "$temporary" -p1 < "$ROOT_DIR/patches/niri-config.patch"
-cp -- "$ROOT_DIR/config/niri/noctalia.kdl" "$temporary/noctalia.kdl"
-niri validate -c "$temporary/config.kdl"
+snapshot="$ROOT_DIR/config/niri"
+niri validate -c "$snapshot/config.kdl"
 
 source_dir="$HOME/.local/src/niri-display-settings"
 if [[ ! -d "$source_dir/.git" ]]; then
@@ -30,13 +22,18 @@ fi
 
 backup_file "$HOME/.config/niri"
 run mkdir -p -- "$HOME/.config/niri"
-run cp -a -- "$temporary/." "$HOME/.config/niri/"
+for file in "$snapshot"/*.kdl "$snapshot"/cfg/*.kdl; do
+    relative="${file#"$snapshot/"}"
+    destination="$HOME/.config/niri/$relative"
+    [[ "$relative" != cfg/display.kdl || ! -e "$destination" ]] || continue
+    install_user_file "$file" "$destination"
+done
 
-cat > "$temporary/niri-display-settings" <<'EOF'
-#!/usr/bin/env sh
-exec /usr/bin/python "$HOME/.local/src/niri-display-settings/niri-display-settings" "$@"
-EOF
-install_user_file "$temporary/niri-display-settings" "$HOME/.local/bin/niri-display-settings" 0755
+install_user_file <(printf '%s\n' \
+    '#!/usr/bin/env sh' \
+    'exec /usr/bin/python "$HOME/.local/src/niri-display-settings/niri-display-settings" "$@"') \
+    "$HOME/.local/bin/niri-display-settings" 0755
+install_user_file "$ROOT_DIR/scripts/screenshot.sh" "$HOME/.local/bin/corvosetup-screenshot" 0755
 install_user_file "$source_dir/io.github.shorin_kiwata.NiriDisplaySettings.desktop" "$HOME/.local/share/applications/io.github.shorin_kiwata.NiriDisplaySettings.desktop"
 install_user_file "$source_dir/icons/niri-display-settings.png" "$HOME/.local/share/icons/hicolor/512x512/apps/niri-display-settings.png"
 

@@ -1,1 +1,35 @@
-// Noctalia replaces this file when it generates the active color theme.
+layout {
+
+    focus-ring {
+        active-color   "#a4c8ff"
+        inactive-color "#111318"
+        urgent-color   "#ffb4ab"
+    }
+
+    border {
+        active-color   "#a4c8ff"
+        inactive-color "#111318"
+        urgent-color   "#ffb4ab"
+    }
+
+    shadow {
+        color "#00000070"
+    }
+
+    tab-indicator {
+        active-color   "#a4c8ff"
+        inactive-color "#3d72b3"
+        urgent-color   "#ffb4ab"
+    }
+
+    insert-hint {
+        color "#a4c8ff80"
+    }
+}
+
+recent-windows {
+    highlight {
+        active-color "#a4c8ff"
+        urgent-color "#ffb4ab"
+    }
+}

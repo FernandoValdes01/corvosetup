@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -u
+
+DB_PATH="$HOME/.t3/userdata/state.sqlite"
+STATE_DIR="$HOME/.local/state/t3code-notify"
+SEEN_PATH="$STATE_DIR/seen-turns"
+POLL_SECONDS=1
+
+mkdir -p "$STATE_DIR"
+
+wait_for_database() {
+  while [[ ! -r "$DB_PATH" ]]; do
+    sleep 2
+  done
+}
+
+query_terminal_turns() {
+  sqlite3 -readonly -separator $'\t' "$DB_PATH" <<'SQL'
+    SELECT
+      t.turn_id,
+      replace(replace(coalesce(p.title, 'T3 Code'), char(9), char(32)), char(10), char(32)),
+      t.state
+    FROM projection_turns AS t
+    LEFT JOIN projection_threads AS p ON p.thread_id = t.thread_id
+    WHERE t.completed_at IS NOT NULL
+      AND t.state IN ('completed', 'error', 'interrupted')
+    ORDER BY t.completed_at ASC, t.row_id ASC;
+SQL
+}
+
+wait_for_database
+
+# Do not replay old chats when the watcher starts for the first time.
+if [[ ! -s "$SEEN_PATH" ]]; then
+  query_terminal_turns | cut -f1 > "$SEEN_PATH.tmp"
+  mv "$SEEN_PATH.tmp" "$SEEN_PATH"
+fi
+
+while :; do
+  while IFS=$'\t' read -r turn_id title state; do
+    [[ -z "$turn_id" ]] && continue
+    if ! grep -Fqx "$turn_id" "$SEEN_PATH"; then
+      case "$state" in
+        completed) summary="Chat listo"; body="$title terminó." ;;
+        error) summary="Chat terminó con error"; body="$title requiere revisión." ;;
+        interrupted) summary="Chat interrumpido"; body="$title se detuvo." ;;
+        *) continue ;;
+      esac
+
+      notify-send \
+        --app-name="T3 Code" \
+        --app-icon="t3code" \
+        --category="im.received" \
+        --urgency="low" \
+        --expire-time=5000 \
+        --transient \
+        --hint="boolean:suppress-sound:true" \
+        "$summary" "$body" >/dev/null 2>&1 || true
+
+      printf '%s\n' "$turn_id" >> "$SEEN_PATH"
+    fi
+  done < <(query_terminal_turns)
+
+  sleep "$POLL_SECONDS"
+done

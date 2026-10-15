@@ -1,0 +1,14 @@
+{
+  "appearanceContrast": 100,
+  "panelAnimationDurationMs": 0,
+  "glassOpacity": 55,
+  "fontSizeInterface": 16,
+  "fontSizePrompt": 14,
+  "fontSizeCode": 13,
+  "fontSizeTerminal": 12,
+  "fontFamilyCode": "",
+  "fontFamilyComposer": "",
+  "fontFamilySans": "",
+  "fontFamilyTerminal": "",
+  "fontSmoothing": true
+}

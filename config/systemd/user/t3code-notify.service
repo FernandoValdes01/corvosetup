@@ -1,0 +1,13 @@
+[Unit]
+Description=Silent desktop notifications when T3 Code chats finish
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/t3code-notify
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target
