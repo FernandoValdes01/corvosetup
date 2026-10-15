@@ -36,6 +36,20 @@ check 'Skill find-skills instalada' test -d "$HOME/.agents/skills/find-skills"
 check 'Skill improve instalada' test -d "$HOME/.agents/skills/improve"
 check 'Configuracion de Limine instalada' test -f /etc/default/limine
 
+check 'Configuracion Codex instalada' test -f "$HOME/.codex/config.toml"
+check 'Instrucciones Codex instaladas' test -f "$HOME/.codex/AGENTS.md"
+check 'Configuracion OpenCode instalada' test -f "$HOME/.config/opencode/opencode.jsonc"
+check 'Cliente Codex disponible' command -v codex
+check 'Cliente OpenCode disponible' command -v opencode
+for skill in i-have-adhd ponytail impeccable playwright-skill jflap; do
+    check "Skill compartida $skill enlazada" test "$HOME/.codex/skills/$skill" -ef "$HOME/.agents/skills/$skill"
+done
+for server in jflap packet-tracer drawio; do
+    check "Lanzador MCP $server instalado" test -x "$HOME/.local/bin/corvosetup-mcp-$server"
+done
+check 'Alacritty configurado' test -f "$HOME/.config/alacritty/alacritty.toml"
+check 'Preferencias visuales T3 instaladas' test -f "$HOME/.t3/userdata/client-settings.json"
+
 if command -v sbctl >/dev/null 2>&1; then
     check 'Estado de Secure Boot legible' sbctl status
     check 'Firmas de Secure Boot validas' sbctl verify

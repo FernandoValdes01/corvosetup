@@ -1,0 +1,30 @@
+name: Verify public setup
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Install locked verification tools
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -r config/mcp/jflap-requirements.txt
+          curl -fsSL -o "$RUNNER_TEMP/gitleaks.tar.gz" https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          printf '%s  %s\n' 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb "$RUNNER_TEMP/gitleaks.tar.gz" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/gitleaks.tar.gz" -C "$RUNNER_TEMP" gitleaks
+          printf '%s\n' "$RUNNER_TEMP" "$GITHUB_WORKSPACE/.venv/bin" >> "$GITHUB_PATH"
+      - name: Check restore, configuration and regressions
+        run: bash tests/static-checks.sh
+      - name: Scan public files and complete Git history
+        run: |
+          bash scripts/check-secrets.sh
+          bash scripts/check-secrets.sh --history

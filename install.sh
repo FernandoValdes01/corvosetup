@@ -14,7 +14,7 @@ DRY_RUN=0
 
 usage() {
     printf 'Uso: bash install.sh [--dry-run] [--only MODULO]\n'
-    printf 'Modulos: packages, limine, logitech, niri, noctalia, skills\n'
+    printf 'Modulos: packages, limine, logitech, niri, noctalia, desktop, skills, agents, mcp\n'
 }
 
 while (($#)); do
@@ -32,7 +32,7 @@ while (($#)); do
 done
 
 case "$ONLY" in
-    ""|packages|limine|logitech|niri|noctalia|skills) ;;
+    ""|packages|limine|logitech|niri|noctalia|desktop|skills|agents|mcp) ;;
     *) printf 'Modulo invalido: %s\n' "$ONLY" >&2; usage >&2; exit 2 ;;
 esac
 
@@ -46,7 +46,7 @@ if [[ "$DRY_RUN" == 0 ]]; then
     [[ "$answer" == "APLICAR" ]] || { printf 'Cancelado.\n'; exit 1; }
 fi
 
-modules=(packages limine logitech niri noctalia skills)
+modules=(packages limine logitech niri noctalia desktop skills agents mcp)
 for module in "${modules[@]}"; do
     [[ -z "$ONLY" || "$ONLY" == "$module" ]] || continue
     script="$ROOT_DIR/scripts/$(case "$module" in
@@ -56,6 +56,9 @@ for module in "${modules[@]}"; do
         niri) printf '04-niri.sh' ;;
         noctalia) printf '05-noctalia.sh' ;;
         skills) printf '06-opencode-skills.sh' ;;
+        desktop) printf '07-desktop.sh' ;;
+        agents) printf '08-agents.sh' ;;
+        mcp) printf '09-mcp.sh' ;;
     esac)"
     section "$module"
     bash "$script"

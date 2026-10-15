@@ -7,7 +7,7 @@ require_authorized_install
 packages=(
     git patch cachyos-niri-noctalia niri noctalia python tk hidapi gtk4 libadwaita python-gobject
     grim slurp satty wl-clipboard
-    jq curl coreutils nodejs npm limine limine-mkinitcpio-hook
+    jq curl coreutils nodejs npm python-pip fish cachyos-fish-config fastfetch alacritty gitleaks sqlite libnotify limine limine-mkinitcpio-hook
     limine-snapper-sync snapper sbctl
 )
 
