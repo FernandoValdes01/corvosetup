@@ -13,3 +13,25 @@ keys/
 *.pem
 *.p12
 machine-id
+
+# Local credentials, history and generated state never belong to dotfiles.
+.env
+.env.*
+!.env.example
+auth.json
+*tokens*.json
+credentials.json
+secrets/
+sessions/
+logs/
+*.sqlite*
+*.db
+*.backup*
+*.before-*
+*.corvosetup.bak*
+.venv/
+build/
+*.egg-info/
+fish_variables
+.DS_Store
+security-report*.json

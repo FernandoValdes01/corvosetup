@@ -1,0 +1,8 @@
+title = "corvosetup public configuration"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated dependencies are excluded from the public snapshot and checked by file policy"
+paths = ['''(^|/)(\.venv|node_modules|__pycache__|\.git)/''']
