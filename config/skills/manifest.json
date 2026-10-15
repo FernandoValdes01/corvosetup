@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "snapshot": "2026-10-15",
+  "skills": [
+    {
+      "name": "android-mobile",
+      "source": "~/.codex/skills/android-mobile",
+      "files": 2
+    },
+    {
+      "name": "ask-matt",
+      "source": "~/.codex/skills/ask-matt",
+      "files": 3
+    },
+    {
+      "name": "code-review",
+      "source": "~/.codex/skills/code-review",
+      "files": 2
+    },
+    {
+      "name": "codebase-design",
+      "source": "~/.codex/skills/codebase-design",
+      "files": 4
+    },
+    {
+      "name": "commit-workflow",
+      "source": "~/.codex/skills/commit-workflow",
+      "files": 2
+    },
+    {
+      "name": "design-taste-frontend",
+      "source": "~/.codex/skills/design-taste-frontend",
+      "files": 2
+    },
+    {
+      "name": "diagnosing-bugs",
+      "source": "~/.codex/skills/diagnosing-bugs",
+      "files": 3
+    },
+    {
+      "name": "diagram-design",
+      "source": "~/.codex/skills/diagram-design",
+      "files": 148
+    },
+    {
+      "name": "domain-modeling",
+      "source": "~/.codex/skills/domain-modeling",
+      "files": 4
+    },
+    {
+      "name": "drawio",
+      "source": "~/.codex/plugins/cache/drawio/drawio/1.2.2/skills/drawio",
+      "files": 1
+    },
+    {
+      "name": "drawio-edit",
+      "source": "~/.codex/skills/drawio-edit",
+      "files": 1
+    },
+    {
+      "name": "find-skills",
+      "source": "~/.codex/skills/find-skills",
+      "files": 1
+    },
+    {
+      "name": "grill-me",
+      "source": "~/.codex/skills/grill-me",
+      "files": 2
+    },
+    {
+      "name": "grill-with-docs",
+      "source": "~/.codex/skills/grill-with-docs",
+      "files": 2
+    },
+    {
+      "name": "handoff",
+      "source": "~/.codex/skills/handoff",
+      "files": 2
+    },
+    {
+      "name": "i-have-adhd",
+      "source": "~/.codex/skills/i-have-adhd",
+      "files": 3
+    },
+    {
+      "name": "impeccable",
+      "source": "~/.codex/skills/impeccable",
+      "files": 58
+    },
+    {
+      "name": "improve",
+      "source": "~/.codex/skills/improve",
+      "files": 4
+    },
+    {
+      "name": "informe-uct",
+      "source": "~/.codex/skills/informe-uct",
+      "files": 2
+    },
+    {
+      "name": "jflap",
+      "source": "~/.codex/skills/jflap",
+      "files": 1
+    },
+    {
+      "name": "latex-workflow",
+      "source": "~/.codex/skills/latex-workflow",
+      "files": 3
+    },
+    {
+      "name": "learn",
+      "source": "~/skills/learn",
+      "files": 3
+    },
+    {
+      "name": "playwright-skill",
+      "source": "~/.codex/skills/playwright-skill",
+      "files": 6
+    },
+    {
+      "name": "ponytail",
+      "source": "~/.codex/skills/ponytail",
+      "files": 2
+    },
+    {
+      "name": "quality-agents",
+      "source": "~/.codex/skills/quality-agents",
+      "files": 26
+    },
+    {
+      "name": "research",
+      "source": "~/.codex/skills/research",
+      "files": 2
+    },
+    {
+      "name": "review-ti2-pr",
+      "source": "~/Documentos/github/ceretime/.agents/skills/review-ti2-pr",
+      "files": 2
+    },
+    {
+      "name": "to-tickets",
+      "source": "~/.codex/skills/to-tickets",
+      "files": 2
+    },
+    {
+      "name": "unslop",
+      "source": "~/.codex/skills/unslop",
+      "files": 1
+    }
+  ],
+  "notes": {
+    "quality-agents": "Legacy snapshot; disabled in Codex and denied in OpenCode. Use current client agent profiles.",
+    "review-ti2-pr": "Private project context excluded and replaced with local documentation pointers.",
+    "system-skills": "Built into Codex; not copied from installation cache.",
+    "plugins": "OAuth and cached connector bundles must be reconnected per device."
+  }
+}

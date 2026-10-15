@@ -1,0 +1,24 @@
+# Public preferences only. Authentication and project trust stay on each PC.
+model = "gpt-6.1-sol"
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 2
+default_subagent_model = "gpt-6-luna"
+default_subagent_reasoning_effort = "medium"
+
+[mcp_servers.packet-tracer]
+command = "@HOME@/.local/bin/corvosetup-mcp-packet-tracer"
+
+[mcp_servers.jflap]
+command = "@HOME@/.local/bin/corvosetup-mcp-jflap"
+env_vars = ["JFLAP_HOME", "JFLAP_JAR", "JFLAP_LAUNCHER"]
+
+[mcp_servers.drawio]
+command = "@HOME@/.local/bin/corvosetup-mcp-drawio"
+
+[mcp_servers.linear]
+url = "https://mcp.linear.app/mcp"
+
+[skills]
+config = [{ name = "quality-agents", enabled = false }, { path = "@HOME@/.codex/skills/quality-agents/SKILL.md", enabled = false }]

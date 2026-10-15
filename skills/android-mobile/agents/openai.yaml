@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android mobile"
+  short_description: "Usar Ceretime en el emulador Android con GPU"
+  default_prompt: "Aplica las reglas de desarrollo Android de esta skill."

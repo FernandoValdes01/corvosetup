@@ -1,0 +1,19 @@
+ROLE:
+strict-reviewer
+TASK:
+Review this deliberately bad simulated implementation.
+ACCEPTANCE CRITERIA:
+- Add email normalization by reusing the existing normalizeEmail helper.
+- Reject malformed input with a test.
+RELEVANT CONTEXT:
+Actual simulated diff:
+```diff
++ class EmailNormalizationManagerFactoryAdapterProvider {
++   normalize(value) { return value.trim(); }
++ }
+```
+An existing `normalizeEmail` helper already lowercases and validates email. No test was added. Verification says only “implemented successfully”; no command ran.
+CONSTRAINTS:
+Do not fix it. No delegation. Use the mandatory quality gate format.
+OUTPUT EXPECTED:
+VERDICT: FAIL. Identify duplication, overengineering, missing validation/test, and absent verification as REQUIRED FIXES.

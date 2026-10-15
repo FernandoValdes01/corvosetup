@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "routes": {
+    "trivial": {
+      "model": "opencode/muse-spark-1.2-contributor-free",
+      "variant": "xhigh"
+    },
+    "normal": {
+      "model": "openai/gpt-5.6-luna",
+      "variant": "medium"
+    },
+    "complex": {
+      "model": "openai/gpt-5.6-luna",
+      "variant": "high"
+    },
+    "very-complex": {
+      "model": "openai/gpt-5.6-luna",
+      "variant": "xhigh"
+    },
+    "review": {
+      "model": "openai/gpt-5.6-luna",
+      "variant": "xhigh"
+    }
+  }
+}

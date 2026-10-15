@@ -1,0 +1,6 @@
+interface:
+  display_name: "Informe UCT"
+  short_description: "Informes UCT con tu plantilla personal de LaTeX"
+  default_prompt: "Usa $informe-uct para crear un informe UCT con mi plantilla personal."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Flujo LaTeX"
+  short_description: "Crea, compila y limpia informes LaTeX"
+  default_prompt: "Usa $latex-workflow para crear o corregir este documento LaTeX y entregar su PDF compilado y limpio."
+
+policy:
+  allow_implicit_invocation: true

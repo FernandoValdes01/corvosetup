@@ -1,0 +1,12 @@
+ROLE:
+implementer
+TASK:
+Classify this simulated one-line typo correction; do not edit files.
+ACCEPTANCE CRITERIA:
+- Confirm the requested change is trivial and tightly scoped.
+RELEVANT CONTEXT:
+This is a controlled routing test.
+CONSTRAINTS:
+No file changes. No delegation.
+OUTPUT EXPECTED:
+Return TEST A: PASS and one sentence.

@@ -1,0 +1,9 @@
+{
+  "name": "corvosetup-agent-clients",
+  "private": true,
+  "description": "Pinned Codex and OpenCode command-line clients",
+  "dependencies": {
+    "@openai/codex": "0.162.1",
+    "opencode-ai": "1.19.0"
+  }
+}

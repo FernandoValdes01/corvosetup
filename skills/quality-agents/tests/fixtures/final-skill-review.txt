@@ -1,0 +1,32 @@
+ROLE:
+strict-reviewer
+TASK:
+Independently review the installed Quality Agents skill in this directory. Read the actual files; do not rely on this summary alone.
+
+ORIGINAL REQUEST:
+Create, install, and test a portable multi-agent Agent Skill for high-quality software at low inference cost. Sol orchestrates; OpenCode leaf workers use exact refreshed Muse Spark 1.2 / GPT-5.6 Luna IDs and medium/high/xhigh variants; prompts and permissions stay minimal; UI taste and real visual verification matter; code must be scoped, reusable, maintainable, and not overengineered; relevant work requires Luna XHIGH strict review; correction loops are bounded; blocked states and final reports are honest; repositories and git remain untouched; tests A-E must include a reviewer rejection.
+
+ACCEPTANCE CRITERIA:
+- Codex skill is globally installed, valid, concise, and progressively discloses references.
+- OpenCode workers are globally discoverable, CLI-invocable via opencode run, never inherit Sol, and cannot delegate.
+- Exact routes are Spark XHIGH, Luna MEDIUM/HIGH/XHIGH, and reviewer Luna XHIGH.
+- Roles are explorer, implementer, debugger, ui-engineer, verifier, and strict-reviewer with focused contracts.
+- Design Taste, frontend inspection, visual honesty, code quality, scope, anti-overengineering, quality gate, bounded loops, blocked format, and final report are covered.
+- Bridge scripts safely enforce routes and reviewer non-downgrade.
+- No project repository is modified and no git mutation occurs.
+- Tests A-E are real; E must return FAIL for duplication, overengineering, a missing requirement, and absent verification.
+
+RELEVANT CONTEXT:
+- Actual implementation: @HOME@/.codex/skills/quality-agents
+- Installed OpenCode agents: @HOME@/.config/opencode/agents/quality-*.md
+- `quick_validate.py`: PASS.
+- Unit tests: 7 PASS, including fixed reviewer routing and a nested-worker process guard.
+- OpenCode effective config shows all six quality agents as primary CLI workers, explicit models/variants, task=deny, skill=deny.
+- `tests/run_live_tests.py`: A-D PASS with no fallback warning; C reported VISUAL VERIFICATION: NOT AVAILABLE. E returned QUALITY GATE VERDICT: FAIL with duplication, overengineering, missing validation/test, and absent verification in REQUIRED FIXES.
+- OpenCode token/cost telemetry was captured; catalog reported cost 0 for these runs.
+
+CONSTRAINTS:
+Read-only. Do not fix, delegate, inspect session logs, or rerun commands. Treat the supplied command results as verification evidence; inspect the implementation files themselves. Distinguish blockers from optional improvements.
+
+OUTPUT EXPECTED:
+Use the mandatory QUALITY GATE format.

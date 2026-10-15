@@ -1,0 +1,14 @@
+ROLE:
+ui-engineer
+TASK:
+Assess a simulated request for a professional minimalist account settings screen; do not edit files.
+ACCEPTANCE CRITERIA:
+- Inspect existing visual language before design.
+- Apply hierarchy, spacing, typography, states, responsive behavior, and accessibility.
+- Avoid generic AI-SaaS decoration.
+RELEVANT CONTEXT:
+No real application is attached, so rendered visual inspection is impossible.
+CONSTRAINTS:
+No file changes. No delegation. Do not claim to have seen a UI.
+OUTPUT EXPECTED:
+Return TEST C: PASS and include VISUAL VERIFICATION: NOT AVAILABLE.

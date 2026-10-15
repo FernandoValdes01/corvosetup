@@ -1,0 +1,4 @@
+interface:
+  display_name: "Quality Agents"
+  short_description: "Quality software with cost-aware workers"
+  default_prompt: "Use $quality-agents to implement this software task with cost-aware OpenCode workers and a strict quality gate."

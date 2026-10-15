@@ -1,0 +1,13 @@
+ROLE:
+debugger
+TASK:
+Analyze this simulated failure: a cache key omits tenant ID, causing intermittent cross-tenant results; do not edit files.
+ACCEPTANCE CRITERIA:
+- State root cause and causal evidence.
+- Propose the minimal fix and a regression test.
+RELEVANT CONTEXT:
+The same resource ID can exist in two tenants.
+CONSTRAINTS:
+No file changes. No delegation. Do not patch only the symptom.
+OUTPUT EXPECTED:
+Return TEST D: PASS with CAUSE, EVIDENCE, MINIMAL FIX, and VERIFICATION.

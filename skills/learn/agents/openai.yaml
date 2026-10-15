@@ -1,0 +1,7 @@
+interface:
+  display_name: "Learn"
+  short_description: "Deep learning from solid foundations"
+  default_prompt: "Use $learn to teach me a topic from my current level."
+
+policy:
+  allow_implicit_invocation: false

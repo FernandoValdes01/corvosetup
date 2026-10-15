@@ -1,0 +1,7 @@
+interface:
+  display_name: "Commits profesionales"
+  short_description: "Crea commits claros, separados y consistentes"
+  default_prompt: "Usa $commit-workflow para preparar commits profesionales, separados por cambio y con el formato tipo(área): descripción."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": [
+      "@HOME@/.agents/skills"
+    ]
+  },
+  "permission": {
+    "skill": {
+      "*": "allow",
+      "quality-agents": "deny"
+    }
+  },
+  "mcp": {
+    "packet-tracer": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-packet-tracer"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "jflap": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-jflap"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "drawio": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-drawio"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "linear": {
+      "type": "remote",
+      "url": "https://mcp.linear.app/mcp",
+      "enabled": true
+    }
+  }
+}

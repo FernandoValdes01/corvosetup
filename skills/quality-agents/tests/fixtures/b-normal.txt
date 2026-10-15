@@ -1,0 +1,13 @@
+ROLE:
+implementer
+TASK:
+Assess a simulated bounded implementation that adds validation to one existing service and tests; do not edit files.
+ACCEPTANCE CRITERIA:
+- Identify the smallest implementation approach.
+- Mention reuse and focused verification.
+RELEVANT CONTEXT:
+This is a controlled workflow test with no repository artifact.
+CONSTRAINTS:
+No file changes. No delegation.
+OUTPUT EXPECTED:
+Return TEST B: PASS with a concise approach.
