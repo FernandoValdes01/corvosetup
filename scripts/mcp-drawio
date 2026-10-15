@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+command -v npx >/dev/null 2>&1 || { printf 'Falta el comando requerido: npx\n' >&2; exit 127; }
+exec npx --yes @drawio/mcp@1.7.0 "$@"

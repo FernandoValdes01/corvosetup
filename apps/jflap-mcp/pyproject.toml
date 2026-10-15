@@ -1,0 +1,17 @@
+[project]
+name = "jflap-mcp"
+version = "0.1.0"
+description = "Servidor MCP file-based para JFLAP 7.1 (automatas finitos .jff)"
+requires-python = ">=3.11"
+dependencies = ["mcp[cli]>=1.13,<2", "pydantic>=2.11,<3"]
+
+[project.scripts]
+jflap-mcp = "jflap_mcp.server:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["jflap_mcp*"]

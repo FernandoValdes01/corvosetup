@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+user_home="${HOME:?HOME no está definido}"
+exec "$user_home/.local/share/corvosetup/mcp/jflap/bin/jflap-mcp" "$@"
