@@ -1,6 +1,6 @@
 # Agentes y skills
 
-El repo conserva 29 skills en `skills/`. El módulo `skills` las instala en `~/.local/share/corvosetup/skills` y crea enlaces en `~/.agents/skills`, `~/.codex/skills` y `~/.config/opencode/skills`. Las rutas `@HOME@` de las plantillas se renderizan al restaurar.
+El repo conserva 30 skills en `skills/`. El módulo `skills` las instala en `~/.local/share/corvosetup/skills` y crea enlaces en `~/.agents/skills`, `~/.codex/skills` y `~/.config/opencode/skills`. Las rutas `@HOME@` de las plantillas se renderizan al restaurar.
 
 Los perfiles Codex viven en `config/codex/agents/` e incluyen roles Luna y Sol. Los perfiles de calidad OpenCode viven en `config/opencode/agents/`. `scripts/restore_agents.py` fusiona las configuraciones gestionadas con `~/.codex/config.toml`, `~/.config/opencode/opencode.jsonc` y `opencode.json`, conservando claves ajenas y credenciales existentes. Las definiciones de agentes compartidas se mantienen en `config/codex/` y `config/opencode/`.
 

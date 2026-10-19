@@ -34,6 +34,7 @@ check 'Skill research instalada' test -d "$HOME/.agents/skills/research"
 check 'Skill to-tickets instalada' test -d "$HOME/.agents/skills/to-tickets"
 check 'Skill find-skills instalada' test -d "$HOME/.agents/skills/find-skills"
 check 'Skill improve instalada' test -d "$HOME/.agents/skills/improve"
+check 'Skill reverse-engineer-anything instalada' test -d "$HOME/.agents/skills/reverse-engineer-anything"
 check 'Configuracion de Limine instalada' test -f /etc/default/limine
 
 check 'Configuracion Codex instalada' test -f "$HOME/.codex/config.toml"
