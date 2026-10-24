@@ -103,7 +103,7 @@ El mismo instalador agrega o actualiza este bloque en `.gitignore`, sin borrar r
 # fin teach-project
 ```
 
-No pidas confirmación para ignorar esos artefactos: es parte obligatoria del flujo. Verifica el bloque antes de entregar y no lo elimines ni lo reemplaces por reglas parciales.
+No pidas confirmación para ignorar esos artefactos: es parte obligatoria del flujo. Verifica el bloque antes de entregar y no lo elimines ni lo reemplaces por reglas parciales. Si el proyecto ya tenía esos archivos versionados, retíralos del índice con `git rm --cached` (sin borrarlos del disco) para que el ignore tenga efecto.
 
 ### 6. Validar y probar de verdad
 
