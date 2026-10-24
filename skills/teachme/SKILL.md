@@ -1,17 +1,17 @@
 ---
-name: teach-project
-description: Convierte cualquier proyecto en una guía local por fases ("enséñame de este proyecto"), con narrativa de decisiones, código real, diagramas, progreso de lectura, panel de dudas y exportación para el agente. Úsala cuando el usuario pida enseñarle, explicarle o hacer un recorrido guiado de un proyecto o repositorio, o invoque teach-project.
+name: teachme
+description: Convierte cualquier proyecto en una guía local por fases ("enséñame de este proyecto"), con narrativa de decisiones, código real, diagramas, progreso de lectura, panel de dudas y exportación para el agente. Úsala cuando el usuario pida enseñarle, explicarle o hacer un recorrido guiado de un proyecto o repositorio, o invoque teachme.
 ---
 
 # Enseñar un proyecto con teach
 
 ## Regla de ejecución
 
-Si el usuario invoca `$teach-project` o pide un teach, **no respondas con un resumen del proyecto**. El entregable es una guía instalada y navegable, no un mensaje largo.
+Si el usuario invoca `$teachme` o pide un teach, **no respondas con un resumen del proyecto**. El entregable es una guía instalada y navegable, no un mensaje largo.
 
 Tu primera acción debe ser comprobar si existe `tutorial.json` y seguir el flujo de 7 pasos. No devuelvas un mapa de archivos, una lista de resultados ni un resumen del repositorio: eso no es un teach. Si no puedes escribir archivos en el proyecto, dilo y detente; no improvises la guía en el chat.
 
-Activa esta skill cuando el usuario diga cosas como **"enséñame de este proyecto"**, "explícame este repo por fases", "hazme un teach de esto", "quiero un recorrido guiado del proyecto", "revísalo conmigo paso a paso" o invoque `$teach-project`. No la uses para un resumen corto ni para una pregunta puntual: para eso responde directamente.
+Activa esta skill cuando el usuario diga cosas como **"enséñame de este proyecto"**, "explícame este repo por fases", "hazme un teach de esto", "quiero un recorrido guiado del proyecto", "revísalo conmigo paso a paso" o invoque `$teachme`. No la uses para un resumen corto ni para una pregunta puntual: para eso responde directamente.
 
 La skill instala en el proyecto el mismo visor que ya funciona en `evaluacionpractica02`: servidor local con token, fases navegables, código real con líneas, diagramas, progreso guardado, panel **Mis dudas**, copiar/descargar/limpiar y exportación para el agente. El resultado se abre con `./teach` desde la raíz del proyecto.
 
@@ -93,7 +93,7 @@ El contenido debe permitir modificar el proyecto, no memorizar comandos. Disting
 
 ```bash
 PROJECT=/ruta/al/proyecto
-python3 "$HOME/.codex/skills/teach-project/scripts/install.py" "$PROJECT"
+python3 "$HOME/.codex/skills/teachme/scripts/install.py" "$PROJECT"
 ```
 
 El instalador copia el motor a `.teach/engine/`, crea o actualiza `teach` y conserva `tutorial.json`, `diagramas/` y `.teach/state/`. Es idempotente: puedes reinstalar tras corregir la skill sin perder progreso.
@@ -114,8 +114,8 @@ No pidas confirmación para ignorar esos artefactos: es parte obligatoria del fl
 ### 6. Validar y probar de verdad
 
 ```bash
-python3 "$HOME/.codex/skills/teach-project/scripts/validate_tutorial.py" "$PROJECT"
-python3 "$HOME/.codex/skills/teach-project/scripts/smoke_test.py" "$PROJECT"
+python3 "$HOME/.codex/skills/teachme/scripts/validate_tutorial.py" "$PROJECT"
+python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 "$PROJECT/teach" fases
 "$PROJECT/teach" archivos
 ```

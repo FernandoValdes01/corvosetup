@@ -5,9 +5,9 @@
 ```bash
 PROJECT=/ruta/al/proyecto
 
-python3 "$HOME/.codex/skills/teach-project/scripts/install.py" "$PROJECT"
-python3 "$HOME/.codex/skills/teach-project/scripts/validate_tutorial.py" "$PROJECT"
-python3 "$HOME/.codex/skills/teach-project/scripts/smoke_test.py" "$PROJECT"
+python3 "$HOME/.codex/skills/teachme/scripts/install.py" "$PROJECT"
+python3 "$HOME/.codex/skills/teachme/scripts/validate_tutorial.py" "$PROJECT"
+python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 
 "$PROJECT/teach" fases
 "$PROJECT/teach" archivos

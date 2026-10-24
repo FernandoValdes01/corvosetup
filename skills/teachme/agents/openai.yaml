@@ -1,0 +1,7 @@
+interface:
+  display_name: "teachme"
+  short_description: "Convierte un proyecto en una guía por fases con dudas y código real"
+  default_prompt: "Usa $teachme para crear un recorrido guiado de este proyecto, con fases, código real, diagramas, progreso y panel de dudas."
+
+policy:
+  allow_implicit_invocation: true

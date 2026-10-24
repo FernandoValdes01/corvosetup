@@ -143,8 +143,8 @@
       "files": 2
     },
     {
-      "name": "teach-project",
-      "source": "~/.codex/skills/teach-project",
+      "name": "teachme",
+      "source": "~/.codex/skills/teachme",
       "files": 14
     },
     {
