@@ -5,6 +5,12 @@ description: Convierte cualquier proyecto en una guía local por fases ("enséñ
 
 # Enseñar un proyecto con teach
 
+## Regla de ejecución
+
+Si el usuario invoca `$teach-project` o pide un teach, **no respondas con un resumen del proyecto**. El entregable es una guía instalada y navegable, no un mensaje largo.
+
+Tu primera acción debe ser comprobar si existe `tutorial.json` y seguir el flujo de 7 pasos. No devuelvas un mapa de archivos, una lista de resultados ni un resumen del repositorio: eso no es un teach. Si no puedes escribir archivos en el proyecto, dilo y detente; no improvises la guía en el chat.
+
 Activa esta skill cuando el usuario diga cosas como **"enséñame de este proyecto"**, "explícame este repo por fases", "hazme un teach de esto", "quiero un recorrido guiado del proyecto", "revísalo conmigo paso a paso" o invoque `$teach-project`. No la uses para un resumen corto ni para una pregunta puntual: para eso responde directamente.
 
 La skill instala en el proyecto el mismo visor que ya funciona en `evaluacionpractica02`: servidor local con token, fases navegables, código real con líneas, diagramas, progreso guardado, panel **Mis dudas**, copiar/descargar/limpiar y exportación para el agente. El resultado se abre con `./teach` desde la raíz del proyecto.
@@ -136,15 +142,28 @@ Comprueba en proporción al cambio:
 
 Si no puedes usar navegador, valida la API y el HTML, y reporta la limitación sin afirmar que viste la interfaz.
 
-Al terminar, entrega:
+## Criterio de terminado
+
+No cierres la tarea hasta comprobar:
+
+- `tutorial.json` existe y pasa el validador.
+- `teach` existe, es ejecutable y `./teach fases` lista las fases.
+- `.gitignore` contiene el bloque gestionado con `/teach`, `/.teach/`, `/tutorial.json` y `/diagramas/`.
+- El smoke test pasa.
+- La respuesta al usuario es un resumen breve, no el contenido de las fases.
+
+Al terminar, entrega solo:
 
 1. Ruta de `tutorial.json`, número de fases y archivos citados.
 2. Comando exacto para abrir: `./teach`.
 3. Qué verificaste realmente y qué quedó pendiente.
 4. Advertencia de no incluir credenciales, tokens, llaves ni artefactos de VM en el contenido.
 
+El contenido completo vive en `tutorial.json` y en el visor. No lo vuelques en el chat.
+
 ## Reglas duras
 
+- **No confundas teach con un resumen.** Un mapa de archivos, un flujo en bloques o una lista de métricas en el chat no reemplaza `tutorial.json` ni el visor.
 - **Nunca inventes** rutas, líneas, comandos, resultados de ejecución ni fuentes.
 - Solo archivos públicos dentro del proyecto: nada de `.env`, `.git/`, `.state/`, llaves, discos, snapshots ni exports.
 - No copies secretos ni datos personales al `tutorial.json`, a los diagramas ni al estado.
