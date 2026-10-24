@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f7f8fa">
+  <title>Atlas de construcción · guía</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#reader">Saltar al contenido</a>
+  <header class="topbar">
+    <button class="brand brand-button" id="home-button" type="button" aria-label="Volver a la primera fase"><span class="brand-mark" aria-hidden="true">A</span><span>Atlas <span class="brand-muted">/ guía</span></span></button>
+    <div class="topbar-tools">
+      <span id="save-status" class="save-status" role="status" aria-live="polite">Conectando…</span>
+      <button class="button button-quiet" id="doubts-open" type="button">Mis dudas <span id="doubt-count" class="count-badge">0</span></button>
+      <button class="button button-outline" id="export-button" type="button">Guardar notas</button>
+      <button class="button button-quiet" id="pause-button" type="button">Pausar y salir</button>
+    </div>
+  </header>
+  <main class="workspace" id="workspace" aria-busy="true">
+    <aside class="sidebar" aria-label="Contenido de la guía">
+      <div class="course-kicker">RECORRIDO DE LECTURA</div>
+      <h1 class="course-title" id="course-title">Recorrido guiado</h1>
+      <p class="course-objective" id="course-objective"></p>
+      <div class="progress-label"><span>Fases leídas</span><span id="progress-text">0 / 0</span></div>
+      <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
+      <nav id="phase-nav" class="phase-nav" aria-label="Fases"></nav>
+      <div class="sidebar-foot"><span class="status-dot" aria-hidden="true"></span> Lectura local · avance guardado</div>
+    </aside>
+    <section class="reader-column" aria-label="Lector">
+      <div class="reader-toolbar">
+        <div class="breadcrumbs"><span>GUÍA</span><span aria-hidden="true">/</span><span id="crumb-phase">CARGANDO</span></div>
+        <button id="read-button" class="button button-small button-outline" type="button">Marcar fase leída</button>
+      </div>
+      <article id="reader" class="reader" tabindex="-1" aria-live="polite" aria-label="Contenido de la fase"></article>
+      <footer class="reader-footer">
+        <div class="key-help"><span class="key">←</span><span class="key">→</span><span>cambiar fase</span><span class="key">↑</span><span class="key">↓</span><span>desplazarse</span><span class="key">↵</span><span>ver archivo</span></div>
+        <div class="page-nav"><button id="previous-button" class="button button-quiet" type="button">← Anterior</button><button id="next-button" class="button button-primary" type="button">Siguiente fase →</button></div>
+      </footer>
+    </section>
+    <aside id="doubts-panel" class="doubts-panel" aria-labelledby="dialog-title">
+      <div class="notes-heading"><h2 id="dialog-title">Mis dudas</h2><button id="doubts-close" class="icon-button" type="button" aria-label="Cerrar panel de dudas">×</button></div>
+      <p class="notes-intro">Anota lo que no entiendes mientras lees. Después cópialas para revisarlas con el agente.</p>
+      <button id="clear-doubts" class="button button-quiet" type="button">Limpiar</button>
+      <p id="dialog-feedback" class="feedback" role="status" aria-live="polite"></p>
+      <div id="doubt-list" class="doubt-list" tabindex="0" aria-label="Dudas guardadas"></div>
+      <form id="doubt-form" class="doubt-form"><label for="doubt-input">Escribe una duda</label><textarea id="doubt-input" rows="3" maxlength="1200" placeholder="Escribe aquí lo que no entiendes…" required></textarea><button type="submit" hidden>Enviar duda</button></form>
+      <div class="notes-actions"><button id="copy-doubts" class="button button-primary" type="button" disabled>Copiar</button><button id="download-doubts" class="button button-quiet" type="button">Descargar .md</button></div>
+    </aside>
+  </main>
+  <dialog id="export-dialog" class="dialog export-dialog" aria-labelledby="export-title">
+    <form method="dialog" class="dialog-head"><div><h2 id="export-title">Guardar tu lectura</h2></div><button class="icon-button" aria-label="Cerrar" value="close">×</button></form>
+    <div class="dialog-body"><p class="dialog-intro">Este resumen reúne las fases leídas y tus dudas. Descárgalo o cópialo para conservarlo.</p><textarea id="export-text" class="export-text" readonly rows="14" aria-label="Resumen exportable"></textarea><div class="copy-row"><button id="copy-export" class="button button-primary" type="button">Copiar resumen</button><button id="download-export" class="button button-outline" type="button">Descargar Markdown</button></div><p id="export-feedback" class="feedback" role="status" aria-live="polite"></p></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

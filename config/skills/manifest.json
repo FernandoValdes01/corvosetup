@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "snapshot": "2026-10-15",
+  "snapshot": "2026-10-24",
   "skills": [
     {
       "name": "android-mobile",
@@ -133,9 +133,19 @@
       "files": 2
     },
     {
+      "name": "reverse-engineer-anything",
+      "source": "~/.codex/skills/reverse-engineer-anything",
+      "files": 7
+    },
+    {
       "name": "review-ti2-pr",
       "source": "~/Documentos/github/ceretime/.agents/skills/review-ti2-pr",
       "files": 2
+    },
+    {
+      "name": "teach-project",
+      "source": "~/.codex/skills/teach-project",
+      "files": 14
     },
     {
       "name": "to-tickets",
