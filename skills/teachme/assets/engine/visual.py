@@ -123,15 +123,18 @@ class TutorApp:
         lines = []
         def paragraph(title, text):
             lines.extend([title, "", *wrap(text, width), ""])
-        paragraph("QUÉ SE SOLICITÓ", story["request"])
-        paragraph("CÓMO SE INTERPRETA", story["interpretation"])
+        paragraph("¿QUÉ SE NOS PIDIÓ?", story["request"])
+        for entry in story.get("glossary", []):
+            paragraph("CONCEPTO · " + entry["term"], entry["explanation"])
+        paragraph("¿QUÉ IMPLICA?", story["interpretation"])
         paragraph("REPRESENTACIÓN DEL PROCESO", " → ".join(self.phase.get("flow", [])))
-        paragraph("QUÉ REPRESENTA LA IMAGEN", story["visual"]["caption"] + " Las imágenes reales están en teach guia.")
-        paragraph("POR QUÉ SE HIZO ASÍ", story["decision"])
-        for alternative in story["alternatives"]:
+        if story.get("visual"):
+            paragraph("QUÉ REPRESENTA LA IMAGEN", story["visual"]["caption"] + " Las imágenes reales están en teach guia.")
+        paragraph("¿QUÉ DECISIONES TOMAMOS Y POR QUÉ?", story["decision"])
+        for alternative in story.get("alternatives", []):
             paragraph("ALTERNATIVA · " + alternative["name"], alternative["tradeoff"])
         catalog = {entry["path"]: entry for entry in self.files}
-        for index, step in enumerate(story["walkthrough"], 1):
+        for index, step in enumerate(story.get("walkthrough", []), 1):
             paragraph(f"PASO {index} · {step['title']}", step["text"])
             if step.get("file") in catalog:
                 entry = dict(catalog[step["file"]])
@@ -139,9 +142,12 @@ class TutorApp:
                 snippet = file_lines(self.lab_dir, entry, width)
                 start = next(i for i, line in enumerate(snippet) if line.startswith("CÓDIGO REAL"))
                 lines.extend([*snippet[start:], ""])
-        for difficulty in story["difficulties"]:
+        for difficulty in story.get("difficulties", []):
             paragraph("DIFICULTAD Y CÓMO ABORDARLA", difficulty)
-        paragraph("CÓMO ADAPTARLO A OTRO PROYECTO", story["transfer"])
+        if story.get("result"):
+            paragraph("¿QUÉ PRODUCE AL EJECUTARSE?", story["result"])
+        elif story.get("transfer"):
+            paragraph("CIERRE DE LA GUÍA ANTERIOR", story["transfer"])
         lines.extend(["Dudas opcionales: pulsa D para anotar una y seguir leyendo.",
                       "Enter abre el código completo. ←/→ cambia de fase."])
         return lines

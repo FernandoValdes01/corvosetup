@@ -1,7 +1,7 @@
 interface:
   display_name: "teachme"
-  short_description: "Convierte un proyecto en una guía por fases con dudas y código real"
-  default_prompt: "Usa $teachme para crear un recorrido guiado de este proyecto, con fases, código real, diagramas, progreso y panel de dudas."
+  short_description: "Instala una guía web local; no responde con resúmenes"
+  default_prompt: "Usa $teachme para construir e instalar la guía navegable de este proyecto. Explica qué se nos pidió, define los conceptos sin dar por sabido y enseña qué decisiones tomamos, cómo funcionan y por qué. Busca, abre e incorpora los gráficos y diagramas existentes que expliquen el recorrido; no los reemplaces por citas de código. Si faltan, decide qué crear, prefiriendo gráficos para ejemplos matemáticos y diagramas para infraestructura, DevOps y sistemas. Representa las dependencias entre carpetas cuando sean necesarias y explica qué exige sus ubicaciones. Incluye un glosario inicial cuando haga falta. Cierra con lo que produce el código o la infraestructura, distinguiendo resultados observados y esperados. La enseñanza general nace del razonamiento, sin una sección de transferencia. Crea tutorial.json y deja ./teach funcionando."
 
 policy:
   allow_implicit_invocation: true

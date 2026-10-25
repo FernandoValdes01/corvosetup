@@ -2,6 +2,8 @@
 
 ## Comandos
 
+Al modificar la skill o el contrato de contenido, ejecuta también `python3 scripts/test_content_contract.py` desde la carpeta de la skill. Comprueba `result`, compatibilidad con `transfer`, validación del glosario y lectura de terminal sin imagen. No evalúa la calidad pedagógica; esa requiere revisar el relato y sus ejemplos.
+
 ```bash
 PROJECT=/ruta/al/proyecto
 
@@ -26,6 +28,21 @@ python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 - `clear_doubts` borra solo dudas, no fases ni posición.
 - `close` exporta `dudas-tutorial.md` y detiene el servidor.
 
+## Checklist de contenido
+
+1. La primera fase desarrolla el encargo: qué se pidió, para quién, qué implica, qué límites había y cómo se reconoce el éxito. No es una introducción de dos líneas.
+2. El cómo aparece después del encargo; cada cierre explica qué produce el código o la infraestructura. La fase final conecta entradas, salidas o cambios de estado, evidencia y límites.
+3. El pedido original y lo inferido están distinguidos; no se inventa la intención.
+4. Los conceptos y las siglas se explican antes de usarlos. El glosario inicial, si hace falta, define cada término con un ejemplo del proyecto y también aparece en el modo texto.
+5. Las decisiones explican el mecanismo y sus consecuencias; las diferencias entre modelos o componentes tienen una razón comprensible. El aprendizaje general surge de ese razonamiento, sin un apartado de transferencia.
+6. Los ejemplos didácticos, resultados esperados y ejecuciones observadas se distinguen. No se confunde un documento terminado o el progreso de lectura con el efecto operativo del proyecto.
+7. Los flujos, relaciones o comparaciones difíciles de seguir tienen el apoyo visual apropiado y texto que enseña a leerlo. Las definiciones simples no llevan diagramas de relleno.
+8. Las dificultades tienen evidencia; no se inventan incidentes. Las limitaciones de evidencia acompañan al resultado o al alcance.
+9. Se buscaron y abrieron los recursos gráficos existentes en documentación, informes, resultados y notebooks relevantes. Las figuras pertinentes se muestran y explican en el lector con origen identificado; una ruta o enlace no basta. Cualquier omisión tiene una razón de alcance, vigencia, duplicación o un impedimento concreto.
+10. Si faltaba material gráfico adecuado, se decidió qué crear según el tema, con preferencia por gráficos o dibujos para ejemplos matemáticos y diagramas para infraestructura, DevOps y diseño de sistemas. No se impone una cuota a todas las fases.
+11. Si comprender el funcionamiento depende de las relaciones o ubicaciones entre carpetas, el flujo está representado y se explica quién consume cada ruta, cómo la resuelve y qué cambia al moverla. Se distingue requisito técnico de convención.
+12. Los recursos gráficos originales permanecen intactos y conservan su seguimiento en Git. Las copias del teach no los sobrescriben, mueven ni retiran del índice.
+
 ## Checklist manual del navegador
 
 1. La barra lateral muestra título, objetivo, progreso y todas las fases.
@@ -41,6 +58,8 @@ python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 11. Con `prefers-reduced-motion: reduce` no hay animaciones.
 12. Los diagramas se ven, tienen pie y abren a tamaño completo.
 13. `.gitignore` contiene el bloque gestionado con `/teach`, `/.teach/`, `/tutorial.json` y `/diagramas/`.
+14. El glosario se lee en la primera fase y los párrafos extensos se separan. En una guía nueva el cierre muestra el resultado; una guía antigua con `transfer` muestra "Cierre de la guía anterior", sin presentarlo como evidencia de ejecución.
+15. Las figuras reutilizadas cargan en el lector y su pie identifica el origen. Los gráficos conservan ejes, leyendas y valores legibles; los diagramas de carpetas o despliegue permiten seguir las relaciones descritas en el texto.
 
 ## Rutas y seguridad
 
@@ -61,7 +80,7 @@ python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 | `El archivo ... supera el tamaño permitido` | Archivo mayor de 300 KB | Citar un fragmento en un archivo menor o dividir el archivo. |
 | `La fase no pertenece a esta guía` | Acción con `phase` inexistente | Revisar el estado guardado y reiniciar el progreso si es corrupto. |
 | El código se ve desalineado | `lines` no coincide con el archivo actual | Corregir el rango y revalidar. |
-| El diagrama da 404 | `file` no es un nombre dentro de `diagramas/` | Mover la imagen y actualizar `story.visual.file`. |
+| El diagrama da 404 | `file` no es un nombre dentro de `diagramas/` | Copiar la imagen a un nombre libre dentro de `diagramas/`, conservando la fuente, y actualizar `story.visual.file`. |
 | La página no carga en el navegador | Se abrió sin token o desde otro host | Usar la URL completa que imprime `teach guia`. |
 | El progreso no se guarda | `.teach/state` sin permisos | Revisar permisos y ejecutar de nuevo. |
 

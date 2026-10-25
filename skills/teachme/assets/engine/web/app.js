@@ -34,6 +34,9 @@
     parent.append(el);
     return el;
   };
+  const appendParagraphs = (parent, content) => {
+    text(content).split(/\n\s*\n/).filter((part) => part.trim()).forEach((part) => appendText(parent, 'p', part));
+  };
   const labelFor = (phase) => phase?.title || 'Fase';
   const safeFile = (path) => Object.prototype.hasOwnProperty.call(files, path);
 
@@ -116,6 +119,20 @@
     appendText(target, 'h2', title);
   }
 
+  function renderGlossary(target, entries) {
+    if (!entries?.length) return;
+    addSectionHeading(target, 'Conceptos para empezar');
+    const list = node('dl');
+    entries.forEach((entry) => {
+      const term = node('dt');
+      appendText(term, 'strong', text(entry.term));
+      const explanation = node('dd');
+      appendParagraphs(explanation, entry.explanation);
+      list.append(term, explanation);
+    });
+    target.append(list);
+  }
+
   function renderCallout(target, heading, copy) {
     if (!copy) return;
     const box = node('aside', 'callout');
@@ -175,7 +192,7 @@
       appendText(row, 'span', String(index + 1).padStart(2, '0'), 'step-number');
       const content = node('div');
       appendText(content, 'h3', text(step.title) || `Paso ${index + 1}`);
-      if (step.text) appendText(content, 'p', step.text);
+      if (step.text) appendParagraphs(content, step.text);
       if (step.file) addCodeBlock(content, step.file, step.lines);
       row.append(content);
       target.append(row);
@@ -219,7 +236,7 @@
   function renderFallback(phase, target) {
     (phase.sections || []).forEach((section) => {
       addSectionHeading(target, text(section.title));
-      appendText(target, 'p', text(section.text));
+      appendParagraphs(target, section.text);
       (section.files || []).forEach((path) => addCodeBlock(target, path));
     });
   }
@@ -243,21 +260,22 @@
       if (Array.isArray(phase.flow) && phase.flow.length) {
         appendText(ui.reader, 'p', phase.flow.join('  →  '), 'scope-note');
       }
+      renderGlossary(ui.reader, phase.story.glossary);
       if (phase.story.interpretation) {
-        addSectionHeading(ui.reader, '1. Del requisito a la interpretación');
-        appendText(ui.reader, 'p', phase.story.interpretation);
+        addSectionHeading(ui.reader, '1. ¿Qué se nos pidió y qué implica?');
+        appendParagraphs(ui.reader, phase.story.interpretation);
       }
       renderFigure(ui.reader, phase.story.visual);
       if (phase.story.decision) {
-        addSectionHeading(ui.reader, '2. Decisión técnica');
-        appendText(ui.reader, 'p', phase.story.decision);
+        addSectionHeading(ui.reader, '2. ¿Qué decisiones tomamos y por qué?');
+        appendParagraphs(ui.reader, phase.story.decision);
       }
       if (phase.story.alternatives?.length) {
         appendText(ui.reader, 'h3', 'Otras formas de resolverlo');
         renderAlternatives(ui.reader, phase.story.alternatives);
       }
       if (phase.story.walkthrough?.length) {
-        addSectionHeading(ui.reader, '3. Cómo se construyó');
+        addSectionHeading(ui.reader, '3. ¿Cómo lo hace el código?');
         renderWalkthrough(ui.reader, phase.story.walkthrough);
       }
       if (phase.story.difficulties?.length) {
@@ -266,9 +284,9 @@
         phase.story.difficulties.forEach((item) => appendText(list, 'li', item));
         ui.reader.append(list);
       }
-      if (phase.story.transfer) {
-        addSectionHeading(ui.reader, '5. Cómo llevarlo a otro proyecto');
-        appendText(ui.reader, 'p', phase.story.transfer);
+      if (phase.story.result || phase.story.transfer) {
+        addSectionHeading(ui.reader, phase.story.result ? '5. ¿Qué produce al ejecutarse?' : '5. Cierre de la guía anterior');
+        appendParagraphs(ui.reader, phase.story.result || phase.story.transfer);
       }
     } else renderFallback(phase, ui.reader);
 

@@ -130,6 +130,19 @@ class Validator:
             self.text(section.get("title"), f"{where}.sections[{position}].title")
             self.text(section.get("text"), f"{where}.sections[{position}].text")
 
+        if index == 0:
+            normalized_title = str(phase.get("title", "")).strip().lower()
+            if normalized_title in {"introduccion", "introducción", "resumen", "contexto"}:
+                self.error(
+                    f"{where}.title: la primera fase debe reconstruir el encargo, "
+                    "no ser una introducción o un resumen."
+                )
+            if len(sections) < 3:
+                self.error(
+                    f"{where}.sections: la fase del encargo debe tener al menos tres bloques "
+                    "(qué se pidió, qué implica, límites y criterio de éxito)."
+                )
+
         phase_files = phase.get("files", [])
         if not isinstance(phase_files, list):
             self.error(f"{where}.files: se esperaba una lista de rutas.")
@@ -154,8 +167,40 @@ class Validator:
         if not isinstance(story, dict):
             self.error(f"{where}.story: se esperaba un objeto.")
             return
-        for key in ("request", "interpretation", "decision", "transfer"):
+        for key in ("request", "interpretation", "decision"):
             self.text(story.get(key), f"{where}.story.{key}")
+        if "result" in story:
+            self.text(story["result"], f"{where}.story.result")
+        elif "transfer" in story:
+            self.text(story["transfer"], f"{where}.story.transfer")
+        else:
+            self.error(f"{where}.story.result: explica qué produce el código o la infraestructura y cómo comprobarlo.")
+        if "transfer" in story:
+            self.warn(
+                f"{where}.story.transfer: campo antiguo; escribe story.result con evidencia "
+                "del efecto del código o la infraestructura y elimina transfer. No basta con renombrarlo."
+            )
+        if "glossary" in story:
+            for position, entry in enumerate(self.items(story["glossary"], f"{where}.story.glossary")):
+                label = f"{where}.story.glossary[{position}]"
+                if not isinstance(entry, dict):
+                    self.error(f"{label}: se esperaba un objeto con term y explanation.")
+                    continue
+                self.text(entry.get("term"), f"{label}.term")
+                self.text(entry.get("explanation"), f"{label}.explanation")
+        if index == 0:
+            request = story.get("request")
+            if isinstance(request, str) and len(request.strip()) < 160:
+                self.error(
+                    f"{where}.story.request: el pedido inicial es demasiado breve; "
+                    "explicá quién pidió qué, para qué y en qué contexto."
+                )
+            interpretation = story.get("interpretation")
+            if isinstance(interpretation, str) and len(interpretation.strip()) < 240:
+                self.error(
+                    f"{where}.story.interpretation: desarrollá qué implica el encargo "
+                    "(dependencias, restricciones, supuestos y criterio de éxito), no solo una frase."
+                )
         if story.get("visual") is not None:
             self.visual(story["visual"], f"{where}.story.visual")
 
@@ -251,7 +296,7 @@ class Validator:
         diagrams_dir = self.project / "diagramas"
         diagrams = list(diagrams_dir.glob("*.svg")) + list(diagrams_dir.glob("*.png")) if diagrams_dir.is_dir() else []
         if not diagrams:
-            self.warn("diagramas/: no hay imágenes; se recomienda al menos un diagrama propio por recorrido.")
+            self.warn("diagramas/: no hay imágenes; revisa si algún flujo o relación necesita apoyo visual según el playbook.")
 
         for warning in self.warnings:
             print(f"AVISO: {warning}")
