@@ -179,6 +179,16 @@ Primero incorpora el material existente que sea pertinente y fiable: su uso es o
 
 Cuando la ubicación de carpetas o archivos importe, explica **qué consume esa ruta, desde dónde se resuelve, qué se rompería al moverla y qué habría que cambiar para reubicarla**. Comprueba imports, configuración, scripts, contexto de build, volúmenes o reglas de descubrimiento según el proyecto. Distingue una ubicación exigida por el mecanismo de una convención organizativa; no afirmes que una carpeta "debe ir ahí" solo porque así está en el repositorio. Usa un esquema de dependencias o flujo si la ubicación se entiende por su relación con otras piezas.
 
+#### Videos con Remotion junto con los diagramas
+
+- Evalúa si el movimiento ayuda a enseñar una idea concreta: recorrido de datos, orden de mensajes, cambios de estado, evolución de un algoritmo o construcción progresiva de un diagrama. Cuando aporte claridad y Remotion esté disponible, crea un video breve que acompañe el diagrama y su explicación. No impongas una cuota ni generes videos decorativos o que solo desplacen texto.
+- Descubre y usa la extensión/plugin de Remotion y carga sus skills pertinentes de creación y renderizado antes de producir el video. Si no están disponibles o el render falla, conserva los diagramas y el texto e informa el impedimento real; no declares un video terminado sin un archivo reproducible.
+- Guarda composiciones, dependencias y videos dentro de `.teach/media/`, separado del código del proyecto. Como excepción al límite de dependencias del proyecto, puedes instalar allí las necesarias para Remotion y ejecutar únicamente la composición y el render didácticos. No ejecutes la aplicación, sus pipelines ni servicios para crear escenas.
+- Parte de las mismas entidades, etiquetas y relaciones verificadas del diagrama. Identifica simulaciones y ejemplos didácticos; una animación explicativa no demuestra una ejecución real. Conserva la explicación completa y una figura estática para estudiar sin reproducir el video.
+- Entrega el video renderizado y su fuente editable. Vincúlalo con la fase y el diagrama correspondientes mediante las opciones que el visor soporte. El contrato actual de `story.visual` solo admite SVG/PNG: no pongas un MP4 allí ni inventes campos JSON. Si el visor no permite video, entrega en `.teach/media/` una página HTML local con controles de reproducción y la relación con la fase, e indica su ruta en el contenido de esa fase sin afirmar que está incrustada.
+- Evita reproducción automática; usa controles, texto legible y subtítulos si hay narración. Comprueba el archivo renderizado y revisa inicio, transiciones y final para detectar cortes, solapamientos o diferencias con el diagrama. Verifica la reproducción y legibilidad en escritorio y móvil cuando haya navegador; informa las comprobaciones pendientes.
+
+
 ### 6. Reinstalar y verificar el motor
 
 Vuelve a ejecutar el instalador al terminar `tutorial.json` y los diagramas, para dejar el motor y el `.gitignore` actualizados.
