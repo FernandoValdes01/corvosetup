@@ -1,0 +1,7 @@
+interface:
+  display_name: "Edición de video con FilmCraft"
+  short_description: "Edita videos de YouTube con material del repo"
+  default_prompt: "Usa $video-editing para mejorar este video con FilmCraft: limpia el audio, revisa las pausas y añade recursos relevantes del repositorio."
+
+policy:
+  allow_implicit_invocation: true

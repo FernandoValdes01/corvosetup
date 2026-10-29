@@ -35,7 +35,7 @@ Usa `bash install.sh --only MODULO`; añade `--dry-run` para revisar las accione
 | `niri` | Restaura el snapshot portable, Niri Display Settings en español y el atajo de capturas. |
 | `noctalia` | Instala configuración, plugin Codex local y fuente Monocraft. |
 | `desktop` | Restaura Alacritty, Fish, ajustes T3 Code, lanzadores y la unidad de notificaciones T3. |
-| `skills` | Copia 31 skills a la biblioteca local y crea enlaces para los clientes compatibles. |
+| `skills` | Copia 32 skills a la biblioteca local y crea enlaces para los clientes compatibles. |
 | `agents` | Fusiona perfiles y configuración Codex/OpenCode. Instala CLI fijadas solo si falta alguno de los clientes. |
 | `mcp` | Instala servidores MCP Draw.io, JFLAP, Packet Tracer y FilmCraft, y sus lanzadores locales. [Edición de video y setup](docs/filmcraft.md). |
 
@@ -45,7 +45,7 @@ Usa `bash install.sh --only MODULO`; añade `--dry-run` para revisar las accione
 | --- | --- |
 | `apps/` | Logitech Light Manager y código fuente del servidor MCP JFLAP. |
 | `config/` | Snapshots `niri`, `alacritty`, `fish`, `noctalia`, `t3code`, `codex`, `opencode`, `agents`, `skills` y `mcp`. |
-| `skills/` | Biblioteca común de 31 skills con sus recursos. |
+| `skills/` | Biblioteca común de 32 skills con sus recursos. |
 | `scripts/` | Instaladores por módulo, restaurador de agentes, verificaciones y lanzadores MCP. |
 | `patches/` | Parche de idioma de Niri Display Settings. |
 | `tests/` | Comprobaciones estáticas y pruebas de regresión. |

@@ -1,6 +1,6 @@
 # Agentes y skills
 
-El repo conserva 31 skills en `skills/`. El módulo `skills` las instala en `~/.local/share/corvosetup/skills` y crea enlaces en `~/.agents/skills`, `~/.codex/skills` y `~/.config/opencode/skills`. Las rutas `@HOME@` de las plantillas se renderizan al restaurar.
+El repo conserva 32 skills en `skills/`. El módulo `skills` las instala en `~/.local/share/corvosetup/skills` y crea enlaces en `~/.agents/skills`, `~/.codex/skills` y `~/.config/opencode/skills`. Las rutas `@HOME@` de las plantillas se renderizan al restaurar.
 
 Los perfiles Codex viven en `config/codex/agents/` e incluyen roles Luna y Sol. Los perfiles de calidad OpenCode viven en `config/opencode/agents/`. `scripts/restore_agents.py` fusiona las configuraciones gestionadas con `~/.codex/config.toml`, `~/.config/opencode/opencode.jsonc` y `opencode.json`, conservando claves ajenas y credenciales existentes. Las definiciones de agentes compartidas se mantienen en `config/codex/` y `config/opencode/`.
 
@@ -31,3 +31,10 @@ La configuración MCP de Linear apunta a su endpoint remoto. Este repo no guarda
 
 - [OpenAI Codex MCP](https://developers.openai.com/codex/mcp)
 - [OpenCode: configuración](https://opencode.ai/docs/config/)
+
+## Edición de video
+
+La skill `video-editing` se selecciona automáticamente para editar y mejorar videos
+con FilmCraft. Usa material del repositorio del video, revisa pausas y limpia audio;
+no publica en YouTube. El MCP nativo, su instalación reproducible y sus pruebas
+están descritos en [FilmCraft](filmcraft.md). Requiere FFmpeg/FFprobe para análisis.
