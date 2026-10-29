@@ -1,0 +1,7 @@
+interface:
+  display_name: "Edición de imágenes con PhotoCraft"
+  short_description: "Retoque y fotomontajes con referencias cuando aporten"
+  default_prompt: "Usa $photo-editing para editar esta imagen con PhotoCraft. Pide las imágenes de referencia que falten cuando sean necesarias para respetar el encargo."
+
+policy:
+  allow_implicit_invocation: true
