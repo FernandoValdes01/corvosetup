@@ -28,3 +28,5 @@ install_python_server packet-tracer packet-tracer-requirements.txt
 for server in jflap packet-tracer drawio; do
     run install -Dm0755 "$ROOT_DIR/scripts/mcp-$server" "$bin_dir/corvosetup-mcp-$server"
 done
+
+run python3 "$ROOT_DIR/scripts/install_filmcraft.py"

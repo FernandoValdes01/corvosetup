@@ -20,5 +20,9 @@ command = "@HOME@/.local/bin/corvosetup-mcp-drawio"
 [mcp_servers.linear]
 url = "https://mcp.linear.app/mcp"
 
+[mcp_servers.filmcraft]
+command = "@HOME@/.local/bin/corvosetup-mcp-filmcraft"
+args = []
+
 [skills]
 config = [{ name = "quality-agents", enabled = false }, { path = "@HOME@/.codex/skills/quality-agents/SKILL.md", enabled = false }]

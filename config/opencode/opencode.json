@@ -12,6 +12,12 @@
     }
   },
   "mcp": {
+    "filmcraft": {
+      "type": "local",
+      "command": ["@HOME@/.local/bin/corvosetup-mcp-filmcraft"],
+      "enabled": true,
+      "timeout": 10000
+    },
     "packet-tracer": {
       "type": "local",
       "command": [

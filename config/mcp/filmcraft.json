@@ -1,0 +1,7 @@
+{
+  "version": "0.14.0",
+  "platform": "linux-x86_64",
+  "url": "https://github.com/storytold/filmcraft/releases/download/v0.14.0/filmcraft-0.14.0-linux-x86_64.tar.gz",
+  "sha256": "d2aa213cc08abd21e05ab511a78cc38f157caf2226992f3fc8a5e0496a3f7e7d",
+  "archive_root": "filmcraft-0.14.0-linux-x86_64"
+}

@@ -68,3 +68,10 @@ bash scripts/verify.sh
 ```
 
 `check-secrets.sh` requiere Gitleaks. El workflow `.github/workflows/checks.yml` ejecuta pruebas de regresión y escaneo Gitleaks sobre el directorio y el historial en pushes y pull requests; su existencia no significa que un run haya pasado. `scripts/verify.sh` comprueba servicios y archivos instalados; sus resultados dependen de los módulos que hayas aplicado. Se ejecutaron pruebas aisladas de restauración y MCP, pero no una restauración completa en otro PC.
+
+## FilmCraft y edición de video
+
+El módulo `mcp` incluye FilmCraft 0.14.0 para Linux x86_64, verificado por SHA256.
+Los módulos `skills` y `agents` restauran la skill auto invocable y su conexión MCP.
+Para instalar solo FilmCraft, requisitos de análisis y pruebas aisladas, consulta
+[el setup de video](filmcraft.md). No se instalan los otros editores de la familia Craft.
