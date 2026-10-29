@@ -1,0 +1,7 @@
+{
+  "version": "0.17.0",
+  "platform": "linux-x86_64",
+  "url": "https://github.com/storytold/photocraft/releases/download/v0.17.0/photocraft-0.17.0-linux-x86_64.tar.gz",
+  "sha256": "5259f9c428c8ee3478c35500ece98713561cafc050e4c9eb354a5050f36eb2b8",
+  "archive_root": "photocraft-0.17.0-linux-x86_64"
+}

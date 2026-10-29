@@ -37,7 +37,7 @@ Usa `bash install.sh --only MODULO`; añade `--dry-run` para revisar las accione
 | `desktop` | Restaura Alacritty, Fish, ajustes T3 Code, lanzadores y la unidad de notificaciones T3. |
 | `skills` | Copia 32 skills a la biblioteca local y crea enlaces para los clientes compatibles. |
 | `agents` | Fusiona perfiles y configuración Codex/OpenCode. Instala CLI fijadas solo si falta alguno de los clientes. |
-| `mcp` | Instala servidores MCP Draw.io, JFLAP, Packet Tracer y FilmCraft, y sus lanzadores locales. [Edición de video y setup](docs/filmcraft.md). |
+| `mcp` | Instala servidores MCP Draw.io, JFLAP, Packet Tracer, FilmCraft y PhotoCraft, y sus lanzadores locales. [Video](docs/filmcraft.md) y [fotos con referencias](docs/photocraft.md). |
 
 ### Estructura
 

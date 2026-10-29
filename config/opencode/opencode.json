@@ -46,6 +46,14 @@
       "type": "remote",
       "url": "https://mcp.linear.app/mcp",
       "enabled": true
+    },
+    "photocraft": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-photocraft"
+      ],
+      "enabled": true,
+      "timeout": 10000
     }
   }
 }

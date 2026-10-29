@@ -30,3 +30,5 @@ for server in jflap packet-tracer drawio; do
 done
 
 run python3 "$ROOT_DIR/scripts/install_filmcraft.py"
+
+run python3 "$ROOT_DIR/scripts/install_photocraft.py"

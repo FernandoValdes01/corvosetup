@@ -75,3 +75,10 @@ El módulo `mcp` incluye FilmCraft 0.14.0 para Linux x86_64, verificado por SHA2
 Los módulos `skills` y `agents` restauran la skill auto invocable y su conexión MCP.
 Para instalar solo FilmCraft, requisitos de análisis y pruebas aisladas, consulta
 [el setup de video](filmcraft.md). No se instalan los otros editores de la familia Craft.
+
+## PhotoCraft y referencias visuales
+
+El módulo `mcp` también incluye PhotoCraft 0.17.0, con checksum oficial, para Linux
+x86_64. La skill `photo-editing` y el servidor se restauran con `skills` y `agents`.
+Consulta [instalación de PhotoCraft](photocraft.md) para instalar solo este editor,
+configurar raíces de archivos y revisar los límites de generación y pruebas.

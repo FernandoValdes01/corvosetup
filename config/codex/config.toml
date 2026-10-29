@@ -24,5 +24,10 @@ url = "https://mcp.linear.app/mcp"
 command = "@HOME@/.local/bin/corvosetup-mcp-filmcraft"
 args = []
 
+[mcp_servers.photocraft]
+command = "@HOME@/.local/bin/corvosetup-mcp-photocraft"
+args = []
+env_vars = ["PHOTOCRAFT_READ_ROOT", "PHOTOCRAFT_WRITE_ROOT"]
+
 [skills]
 config = [{ name = "quality-agents", enabled = false }, { path = "@HOME@/.codex/skills/quality-agents/SKILL.md", enabled = false }]

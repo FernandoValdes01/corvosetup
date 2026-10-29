@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+user_home="${HOME:?HOME no está definido}"
+exec "$user_home/.local/opt/photocraft/bin/photocraft-cli" mcp \
+    --automation-read-root "${PHOTOCRAFT_READ_ROOT:-$user_home}" \
+    --automation-write-root "${PHOTOCRAFT_WRITE_ROOT:-$user_home}" "$@"
