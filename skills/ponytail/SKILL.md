@@ -1,6 +1,7 @@
 ---
 name: ponytail
 description: "Apply automatically to coding tasks: implementation, bug fixes, refactoring, code review, architecture choices, and dependency selection. Choose the smallest complete solution, reuse existing code and platform capabilities, and preserve validation, error handling, security, accessibility, and requested behavior. Default mode is full; respect user mode changes or deactivation."
+argument-hint: "[lite|full|ultra|off]"
 license: MIT
 ---
 
