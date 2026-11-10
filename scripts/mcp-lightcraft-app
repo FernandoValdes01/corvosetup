@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+user_home="${HOME:?HOME no está definido}"
+# Controla la ventana de LightCraft abierta; el puerto local lo publica la propia aplicación.
+exec "$user_home/.local/opt/lightcraft/bin/lightcraft-cli" mcp --connect "${LIGHTCRAFT_APP_ADDRESS:-127.0.0.1:7980}" --compact "$@"

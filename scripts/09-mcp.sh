@@ -20,15 +20,24 @@ install_python_server() {
     if [[ "$name" == jflap ]]; then
         run "$venv_dir/bin/python" -m pip install --disable-pip-version-check --no-deps "$ROOT_DIR/apps/jflap-mcp"
     fi
+    if [[ "$name" == firefox-local ]]; then
+        run install -Dm0644 "$ROOT_DIR/apps/firefox-mcp/server.py" "$venv_dir/server.py"
+    fi
 }
 
 install_python_server jflap jflap-requirements.txt
 install_python_server packet-tracer packet-tracer-requirements.txt
+install_python_server scrapling scrapling-requirements.txt
+install_python_server firefox-local firefox-requirements.txt
+# Scrapling descarga sus navegadores y huellas para las herramientas de navegador.
+run "$share_dir/scrapling/bin/scrapling" install
 
-for server in jflap packet-tracer drawio; do
+for server in jflap packet-tracer drawio scrapling firefox-local youtube-research; do
     run install -Dm0755 "$ROOT_DIR/scripts/mcp-$server" "$bin_dir/corvosetup-mcp-$server"
 done
 
 run python3 "$ROOT_DIR/scripts/install_filmcraft.py"
 
 run python3 "$ROOT_DIR/scripts/install_photocraft.py"
+
+run python3 "$ROOT_DIR/scripts/install_lightcraft.py"

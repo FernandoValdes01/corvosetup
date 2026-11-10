@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+user_home="${HOME:?HOME no está definido}"
+server_dir="$user_home/.local/share/corvosetup/mcp/firefox-local"
+exec "$server_dir/bin/python" "$server_dir/server.py" "$@"

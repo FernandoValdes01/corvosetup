@@ -14,7 +14,9 @@
   "mcp": {
     "filmcraft": {
       "type": "local",
-      "command": ["@HOME@/.local/bin/corvosetup-mcp-filmcraft"],
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-filmcraft"
+      ],
       "enabled": true,
       "timeout": 10000
     },
@@ -51,6 +53,46 @@
       "type": "local",
       "command": [
         "@HOME@/.local/bin/corvosetup-mcp-photocraft"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "scrapling": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-scrapling"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "firefox-local": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-firefox-local"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "youtube-research": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-youtube-research"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "lightcraft": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-lightcraft"
+      ],
+      "enabled": true,
+      "timeout": 10000
+    },
+    "lightcraft-app": {
+      "type": "local",
+      "command": [
+        "@HOME@/.local/bin/corvosetup-mcp-lightcraft-app"
       ],
       "enabled": true,
       "timeout": 10000

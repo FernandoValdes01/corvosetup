@@ -58,6 +58,30 @@ class PortableWrapperTests(unittest.TestCase):
                 subprocess.run([str(root / "scripts" / f"mcp-{server}")], env={**os.environ, "HOME": str(fake_home)}, check=True)
                 self.assertEqual(marker.read_text(encoding="utf-8"), "--stdio" if server == "packet-tracer" else "")
 
+    def test_scrapling_and_firefox_wrappers_use_corvosetup_environments(self):
+        root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            fake_home = Path(temp_dir)
+            base = fake_home / ".local/share/corvosetup/mcp"
+            for server, command in (("scrapling", "scrapling"), ("firefox-local", "python")):
+                target = base / server / "bin" / command
+                target.parent.mkdir(parents=True)
+                target.write_text("#!/bin/sh\nprintf '%s ' \"$@\"\n", encoding="utf-8")
+                target.chmod(0o755)
+            env = {**os.environ, "HOME": str(fake_home)}
+            scrapling = subprocess.check_output([str(root / "scripts/mcp-scrapling")], env=env, text=True)
+            self.assertEqual(scrapling.split(), ["mcp"])
+            firefox = subprocess.check_output([str(root / "scripts/mcp-firefox-local")], env=env, text=True)
+            self.assertEqual(firefox.split(), [str(base / "firefox-local/server.py")])
+
+    def test_youtube_wrapper_pins_package_and_keeps_key_out_of_configs(self):
+        root = Path(__file__).resolve().parents[1]
+        wrapper = (root / "scripts/mcp-youtube-research").read_text(encoding="utf-8")
+        self.assertIn("@coyasong/youtube-mcp-server@2.0.0", wrapper)
+        self.assertNotIn("@latest", wrapper)
+        for config in ("config/codex/config.toml", "config/opencode/opencode.json", "config/claude/mcp.json"):
+            self.assertNotIn("YOUTUBE_API_KEY=", (root / config).read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

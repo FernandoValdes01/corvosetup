@@ -29,5 +29,22 @@ command = "@HOME@/.local/bin/corvosetup-mcp-photocraft"
 args = []
 env_vars = ["PHOTOCRAFT_READ_ROOT", "PHOTOCRAFT_WRITE_ROOT"]
 
+[mcp_servers.scrapling]
+command = "@HOME@/.local/bin/corvosetup-mcp-scrapling"
+
+[mcp_servers.firefox-local]
+command = "@HOME@/.local/bin/corvosetup-mcp-firefox-local"
+
+[mcp_servers.youtube-research]
+command = "@HOME@/.local/bin/corvosetup-mcp-youtube-research"
+env_vars = ["YOUTUBE_API_KEY"]
+
+[mcp_servers.lightcraft]
+command = "@HOME@/.local/bin/corvosetup-mcp-lightcraft"
+
+[mcp_servers.lightcraft-app]
+command = "@HOME@/.local/bin/corvosetup-mcp-lightcraft-app"
+env_vars = ["LIGHTCRAFT_APP_ADDRESS"]
+
 [skills]
 config = [{ name = "quality-agents", enabled = false }, { path = "@HOME@/.codex/skills/quality-agents/SKILL.md", enabled = false }]

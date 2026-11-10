@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+command -v npx >/dev/null 2>&1 || { printf 'Falta el comando requerido: npx\n' >&2; exit 127; }
+# YOUTUBE_API_KEY es opcional y se hereda del entorno; nunca se guarda en el repositorio.
+exec npx --yes --package=@coyasong/youtube-mcp-server@2.0.0 youtube-mcp-server "$@"
