@@ -2,7 +2,7 @@
 
 ## Comandos
 
-Al modificar la skill o el contrato de contenido, ejecuta también `python3 scripts/test_content_contract.py` desde la carpeta de la skill. Comprueba `result`, compatibilidad con `transfer`, validación del glosario y lectura de terminal sin imagen. No evalúa la calidad pedagógica; esa requiere revisar el relato y sus ejemplos.
+Al modificar la skill o el contrato de contenido, ejecuta también `python3 scripts/test_content_contract.py` desde la carpeta de la skill. Comprueba `result`, compatibilidad con `transfer`, marco teórico inicial obligatorio, comprensión reversible sin pérdida de dudas ni posición, confirmación explícita en modo texto y lectura de terminal sin imagen. No evalúa la calidad pedagógica; esa requiere revisar el relato y sus ejemplos.
 
 ```bash
 PROJECT=/ruta/al/proyecto
@@ -24,7 +24,7 @@ python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 - `GET /api/bootstrap` responde 200 y entrega exactamente los archivos declarados.
 - Una visita guarda fase y scroll.
 - Una duda se registra y aparece en `/api/export`.
-- Marcar una fase como leída no borra dudas.
+- Marcar o desmarcar una fase como comprendida no borra dudas.
 - `clear_doubts` borra solo dudas, no fases ni posición.
 - `close` exporta `dudas-tutorial.md` y detiene el servidor.
 
@@ -33,7 +33,7 @@ python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 1. La primera fase desarrolla el encargo: qué se pidió, para quién, qué implica, qué límites había y cómo se reconoce el éxito. No es una introducción de dos líneas.
 2. El cómo aparece después del encargo; cada cierre explica qué produce el código o la infraestructura. La fase final conecta entradas, salidas o cambios de estado, evidencia y límites.
 3. El pedido original y lo inferido están distinguidos; no se inventa la intención.
-4. Los conceptos y las siglas se explican antes de usarlos. El glosario inicial, si hace falta, define cada término con un ejemplo del proyecto y también aparece en el modo texto.
+4. La primera fase presenta el problema y luego contiene obligatoriamente el marco teórico en `story.glossary`. Este cubre los conceptos previos relevantes sin límite arbitrario de entradas ni huecos evitables, en orden de prerrequisitos a avanzados. Cada explicación incluye definición, mecanismo o idea, papel en el proyecto y ejemplo; conserva `{term, explanation}` y aparece también en `sections`.
 5. Las decisiones explican el mecanismo y sus consecuencias; las diferencias entre modelos o componentes tienen una razón comprensible. El aprendizaje general surge de ese razonamiento, sin un apartado de transferencia.
 6. Los ejemplos didácticos, resultados esperados y ejecuciones observadas se distinguen. No se confunde un documento terminado o el progreso de lectura con el efecto operativo del proyecto.
 7. Los flujos, relaciones o comparaciones difíciles de seguir tienen el apoyo visual apropiado y texto que enseña a leerlo. Las definiciones simples no llevan diagramas de relleno.
@@ -45,20 +45,20 @@ python3 "$HOME/.codex/skills/teachme/scripts/smoke_test.py" "$PROJECT"
 
 ## Checklist manual del navegador
 
-1. La barra lateral muestra título, objetivo, progreso y todas las fases.
+1. El panel izquierdo muestra título, objetivo, progreso y todas las fases. En escritorio, si la lista excede el alto disponible, se desplaza verticalmente con rueda y teclado; en móvil, las fases se navegan horizontalmente.
 2. El lector muestra el relato de la fase, el diagrama si existe y los archivos de la fase.
 3. ←/→ cambia de fase; ↑/↓ desplaza; Enter abre el primer archivo relacionado.
 4. En el archivo completo, ←/→ cambia de archivo, ↑/↓ desplaza y Enter vuelve a la explicación.
-5. **Marcar fase leída** actualiza el contador y persiste al recargar.
+5. Marcar y desmarcar una fase como comprendida actualiza el contador y persiste el estado `completed` compatible al recargar.
 6. **Mis dudas** abre el panel; Enter envía y Shift+Enter agrega una línea.
 7. **Limpiar** borra solo dudas; **Copiar** produce la instrucción para el agente; **Descargar .md** baja el archivo.
-8. Recargar conserva fase, scroll, fases leídas y dudas.
-9. **Pausar y salir** guarda y muestra el resumen exportable.
+8. Recargar conserva fase, scroll, fases comprendidas y dudas.
+9. El autosave conserva el avance; cerrar la pestaña y abrir la guía después permite retomar. No se muestra botón "Pausar y salir" ni texto "Lectura local · avance guardado".
 10. A ~390 px el panel de dudas se abre con el botón y se cierra con Escape.
 11. Con `prefers-reduced-motion: reduce` no hay animaciones.
-12. Los diagramas se ven, tienen pie y abren a tamaño completo.
+12. Los diagramas se ven, tienen pie y abren a tamaño completo. Los creados o adaptados se inspeccionaron renderizados al tamaño del lector y a tamaño completo, en escritorio y móvil, según el paso 5 de `SKILL.md`: texto legible, sin solapamientos, recortes ni líneas que atraviesen las etiquetas. Las correcciones se volvieron a renderizar y revisar; cualquier impedimento de inspección visual queda reportado.
 13. `.gitignore` contiene el bloque gestionado con `/teach`, `/.teach/`, `/tutorial.json` y `/diagramas/`.
-14. El glosario se lee en la primera fase y los párrafos extensos se separan. En una guía nueva el cierre muestra el resultado; una guía antigua con `transfer` muestra "Cierre de la guía anterior", sin presentarlo como evidencia de ejecución.
+14. El marco teórico se lee en la primera fase, después de presentar el problema; cubre los conceptos previos pertinentes, su orden tiene en cuenta prerrequisitos, y cada explicación incluye definición, mecanismo/idea, papel en el proyecto y ejemplo. Los párrafos extensos se separan. En una guía nueva el cierre muestra el resultado; una guía antigua con `transfer` muestra "Cierre de la guía anterior", sin presentarlo como evidencia de ejecución.
 15. Las figuras reutilizadas cargan en el lector y su pie identifica el origen. Los gráficos conservan ejes, leyendas y valores legibles; los diagramas de carpetas o despliegue permiten seguir las relaciones descritas en el texto.
 
 ## Rutas y seguridad

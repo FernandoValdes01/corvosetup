@@ -31,7 +31,7 @@ def apply_action(state: dict, action: dict, lesson: dict) -> dict:
     if not isinstance(action, dict):
         raise ValueError("La acción debe ser un objeto JSON.")
     kind = action.get("action")
-    if not isinstance(kind, str) or kind not in {"visit", "complete", "doubt", "clear_doubts"}:
+    if not isinstance(kind, str) or kind not in {"visit", "complete", "uncomplete", "doubt", "clear_doubts"}:
         raise ValueError("Acción desconocida.")
     if kind == "clear_doubts":
         updated = copy.deepcopy(state)
@@ -52,6 +52,8 @@ def apply_action(state: dict, action: dict, lesson: dict) -> dict:
     elif kind == "complete":
         if phase not in updated["completed"]:
             updated["completed"].append(phase)
+    elif kind == "uncomplete":
+        updated["completed"] = [item for item in updated["completed"] if item != phase]
     else:
         text = action.get("text")
         if not isinstance(text, str) or not text.strip() or len(text) > 4000:

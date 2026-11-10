@@ -79,11 +79,17 @@ def report(lesson: dict, state: dict) -> str:
         "",
         f"Proyecto: {lesson['title']}.",
         "Guía: `tutorial.json`.",
-        f"Progreso de estudio: {len(set(state['completed']))}/{len(lesson['phases'])} fases.",
-        "Este progreso registra lectura y dudas; no verifica la ejecución ni el estado actual del proyecto.",
+        f"Progreso de comprensión: {len(set(state['completed']))}/{len(lesson['phases'])} fases comprendidas.",
+        "Este progreso registra la comprensión declarada y las dudas; no verifica la ejecución ni el estado actual del proyecto.",
     ]
+    origins = {phase["id"]: {"number": number, "id": phase["id"], "title": phase["title"]}
+               for number, phase in enumerate(lesson["phases"], 1)}
     for index, doubt in enumerate(state["doubts"], 1):
         lines.extend(["", f"Duda {index}: {doubt['text']}"])
+        # Keep provenance in copied Markdown without adding it to the notes panel.
+        context = json.dumps({"doubt": index, "guide": "tutorial.json", "phase": origins[doubt["phase"]]},
+                             ensure_ascii=False).replace("--", "\\u002d\\u002d").replace(">", "\\u003e")
+        lines.append(f"<!-- teachme-origin: {context} -->")
     if not state["doubts"]:
         lines.extend(["", "Todavía no registré dudas."])
     lines.extend(["", "Responde según el contenido y la configuración del repositorio. Distingue evidencia histórica de resultados actuales.", ""])
@@ -156,8 +162,14 @@ def guide(lesson: dict, state: dict, state_dir: Path, progress_path: Path) -> No
                 export(lesson, state, state_dir, show=False)
                 print(f"Duda guardada. Total: {len(state['doubts'])}.")
                 prompt = "¿Otra duda? Escribe una, Enter para continuar o /salir para pausar: "
-            if phase["id"] not in state["completed"]:
+            while True:
+                understood = read("\n¿La comprendiste? [s] marcar · [n] desmarcar · [Enter] conservar estado: ").lower()
+                if understood in {"s", "n", ""}:
+                    break
+            if understood == "s" and phase["id"] not in state["completed"]:
                 state["completed"].append(phase["id"])
+            elif understood == "n":
+                state["completed"] = [item for item in state["completed"] if item != phase["id"]]
             state["phase"] = phases[index + 1]["id"] if index + 1 < len(phases) else None
             state["section"] = 0
             save_progress(progress_path, state)
@@ -172,7 +184,7 @@ def guide(lesson: dict, state: dict, state_dir: Path, progress_path: Path) -> No
 def main(lab_dir: Path, argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Tutorial por fases con progreso y dudas para copiar al chat.")
     parser.add_argument("command", nargs="?", default="tutorial", choices=sorted(COMMANDS))
-    parser.add_argument("--fase", type=int, help="repasar desde esta fase sin borrar dudas ni fases leídas")
+    parser.add_argument("--fase", type=int, help="repasar desde esta fase sin borrar dudas ni fases comprendidas")
     parser.add_argument("--texto", action="store_true", help="usar lectura lineal compatible con lectores de pantalla")
     parser.add_argument("--sin-animaciones", action="store_true", help="mostrar el programa visual sin movimiento")
     parser.add_argument("--terminal", action="store_true", help="usar la interfaz de terminal en vez del navegador")
@@ -190,7 +202,7 @@ def main(lab_dir: Path, argv: list[str] | None = None) -> int:
         state_dir, progress_path = state_paths(lab_dir)
         state = load_progress(progress_path, phases)
         if args.command in {"fases", "progreso"}:
-            print(f"\n{lesson['title']} · {len(set(state['completed']))}/{len(phases)} fases leídas")
+            print(f"\n{lesson['title']} · {len(set(state['completed']))}/{len(phases)} fases comprendidas")
             for index, phase in enumerate(phases, 1):
                 marker = "x" if phase["id"] in state["completed"] else " "
                 cursor = " <- retomar aquí" if phase["id"] == state["phase"] else ""

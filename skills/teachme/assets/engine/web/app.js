@@ -13,7 +13,7 @@
   };
   let lesson, files = {}, state = { version: 1, phase: null, section: 0, completed: [], doubts: [], reader: null }, report = '';
   let phaseIndex = 0, activeFile = null, articleScroll = 0, scrollTimer, toastTimer, requestChain = Promise.resolve();
-  let sessionClosing = false, sessionClosed = false, doubtTargetPhase = null;
+  let doubtTargetPhase = null;
 
   const text = (value) => typeof value === 'string' ? value : '';
   const escLines = (value) => text(value).split('\n');
@@ -54,10 +54,9 @@
   }
 
   function queueAction(action) {
-    if (sessionClosed) return Promise.reject(new Error('La sesión está cerrada.'));
     const run = requestChain.then(async () => {
       setStatus('Guardando…');
-      const response = await api('/api/action', { method: 'POST', body: JSON.stringify(action) });
+      const response = await api('/api/action', { method: 'POST', body: JSON.stringify(action), keepalive: true });
       const result = await response.json();
       if (result.state) {
         state.completed = Array.isArray(result.state.completed) ? result.state.completed : state.completed;
@@ -96,7 +95,9 @@
       if (index === phaseIndex) link.setAttribute('aria-current', 'step');
       else link.removeAttribute('aria-current');
     });
-    ui.read.textContent = completed.has(currentPhaseId()) ? 'Fase leída ✓' : 'Marcar fase leída';
+    const understood = completed.has(currentPhaseId());
+    ui.read.textContent = understood ? 'Desmarcar como comprendida' : 'Marcar como comprendida';
+    ui.read.setAttribute('aria-pressed', String(understood));
     ui.previous.disabled = phaseIndex <= 0;
     ui.next.disabled = phaseIndex >= phases.length - 1;
   }
@@ -121,7 +122,7 @@
 
   function renderGlossary(target, entries) {
     if (!entries?.length) return;
-    addSectionHeading(target, 'Conceptos para empezar');
+    addSectionHeading(target, 'Marco teórico y glosario');
     const list = node('dl');
     entries.forEach((entry) => {
       const term = node('dt');
@@ -358,7 +359,7 @@
   }
 
   function openPhase(index) {
-    if (sessionClosing || sessionClosed || index < 0 || index >= lesson.phases.length || index === phaseIndex) return;
+    if (index < 0 || index >= lesson.phases.length || index === phaseIndex) return;
     scheduleScrollSave(true);
     phaseIndex = index;
     state.phase = currentPhaseId();
@@ -372,7 +373,7 @@
     clearTimeout(scrollTimer);
     const phase = currentPhaseId();
     const scroll = Math.max(0, Math.round(window.scrollY));
-    if (!phase || activeFile || sessionClosing || sessionClosed) return;
+    if (!phase || activeFile) return;
     const save = () => queueAction({ action: 'visit', phase, scroll }).catch(() => {});
     if (immediate) save();
     else scrollTimer = setTimeout(save, 400);
@@ -380,7 +381,7 @@
 
   function makeNotes() {
     const completed = new Set(state.completed || []);
-    const lines = [`# ${text(lesson.title)}`, '', `Objetivo: ${text(lesson.objective)}`, '', '## Fases leídas', ''];
+    const lines = [`# ${text(lesson.title)}`, '', `Objetivo: ${text(lesson.objective)}`, '', '## Fases comprendidas', ''];
     lesson.phases.forEach((phase) => lines.push(`- [${completed.has(phase.id) ? 'x' : ' '}] ${phase.title}`));
     lines.push('', '## Dudas', '');
     if (!(state.doubts || []).length) lines.push('_Todavía no hay dudas anotadas._');
@@ -427,7 +428,7 @@
 
   function onKeys(event) {
     if (!lesson) return;
-    if (sessionClosed || sessionClosing || event.defaultPrevented || isTypingTarget(event.target) || ui.doubtPanel.contains(event.target) || ui.exportDialog.open) return;
+    if (event.defaultPrevented || isTypingTarget(event.target) || event.target.closest('.sidebar') || ui.doubtPanel.contains(event.target) || ui.exportDialog.open) return;
     if (event.key === 'Enter' && event.target.closest('button, a, [role=button]')) return;
     if (activeFile) {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -475,42 +476,6 @@
     ui.doubtInput.focus({ preventScroll: true });
   }
 
-  async function closeSession() {
-    if (sessionClosing || sessionClosed) return;
-    sessionClosing = true;
-    clearTimeout(scrollTimer);
-    $('pause-button').disabled = true;
-    $('pause-button').textContent = 'Guardando…';
-    try {
-      await queueAction({ action: 'visit', phase: currentPhaseId(), scroll: activeFile ? Math.max(0, Math.round(articleScroll)) : Math.max(0, Math.round(window.scrollY)) });
-      await requestChain;
-      const response = await api('/api/action', { method: 'POST', body: JSON.stringify({ action: 'close' }) });
-      const result = await response.json();
-      report = text(result.report) || makeNotes();
-      if (result.state) {
-        state.completed = Array.isArray(result.state.completed) ? result.state.completed : state.completed;
-        state.doubts = Array.isArray(result.state.doubts) ? result.state.doubts : state.doubts;
-      }
-      sessionClosed = true;
-      document.body.classList.add('session-closed');
-      setStatus('Sesión cerrada');
-      $('pause-button').textContent = 'Sesión cerrada';
-      [$('doubts-open'), $('export-button'), ui.read, ui.previous, ui.next].forEach((button) => { button.disabled = true; });
-      ui.nav.querySelectorAll('button').forEach((button) => { button.disabled = true; });
-      ui.reader.querySelectorAll('button').forEach((button) => { button.disabled = true; });
-      ui.doubtForm.querySelectorAll('input, textarea, button').forEach((control) => { control.disabled = true; });
-      ui.exportText.value = report;
-      ui.exportFeedback.textContent = 'Sesión cerrada. Puedes copiar o descargar este resumen sin conexión.';
-      ui.exportDialog.showModal();
-      $('copy-export').focus();
-    } catch (error) {
-      sessionClosing = false;
-      $('pause-button').disabled = false;
-      $('pause-button').textContent = 'Pausar y salir';
-      showToast(`No se pudo cerrar la sesión: ${error.message}`);
-    }
-  }
-
   async function start() {
     try {
       const response = await api('/api/bootstrap');
@@ -556,7 +521,6 @@
     if (button) openPhase(Number(button.dataset.phaseIndex));
   });
   ui.reader.addEventListener('click', (event) => {
-    if (sessionClosed) return;
     const open = event.target.closest('[data-open-file]');
     if (open) renderFile(open.dataset.openFile, open.dataset.line);
     if (event.target.closest('[data-back-article]')) restoreArticle();
@@ -566,12 +530,24 @@
   ui.previous.addEventListener('click', () => openPhase(phaseIndex - 1));
   ui.next.addEventListener('click', () => openPhase(phaseIndex + 1));
   ui.read.addEventListener('click', async () => {
+    if (ui.read.disabled) return;
     const phase = currentPhaseId();
-    if (state.completed.includes(phase)) { showToast('Esta fase ya está marcada como leída.'); return; }
-    try { await queueAction({ action: 'complete', phase }); showToast('Fase marcada como leída.'); }
-    catch (_) { showToast('No se pudo guardar la lectura. Inténtalo de nuevo.'); }
+    const understood = state.completed.includes(phase);
+    ui.read.disabled = true;
+    try {
+      await queueAction({ action: understood ? 'uncomplete' : 'complete', phase });
+      showToast(understood ? 'Fase desmarcada como comprendida.' : 'Fase marcada como comprendida.');
+    } catch (_) { showToast('No se pudo guardar la comprensión. Inténtalo de nuevo.'); }
+    finally { ui.read.disabled = false; }
   });
   window.addEventListener('scroll', () => scheduleScrollSave(), { passive: true });
+  window.addEventListener('pagehide', () => {
+    const phase = currentPhaseId();
+    if (!phase) return;
+    clearTimeout(scrollTimer);
+    const scroll = Math.max(0, Math.round(activeFile ? articleScroll : window.scrollY));
+    api('/api/action', { method: 'POST', body: JSON.stringify({ action: 'visit', phase, scroll }), keepalive: true }).catch(() => {});
+  });
   window.addEventListener('keydown', onKeys);
 
   $('doubts-close').addEventListener('click', () => {
@@ -599,10 +575,9 @@
   const syncNotesDisclosure = () => $('doubts-open').setAttribute('aria-expanded', String(!notesViewport.matches || ui.doubtPanel.classList.contains('is-open')));
   notesViewport.addEventListener('change', syncNotesDisclosure);
   syncNotesDisclosure();
-  $('doubts-open').addEventListener('click', () => { if (!sessionClosed) openDoubts(currentPhaseId()); });
+  $('doubts-open').addEventListener('click', () => openDoubts(currentPhaseId()));
   ui.doubtForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (sessionClosed || sessionClosing) return;
     const value = ui.doubtInput.value.trim();
     if (!value) return;
     const submit = ui.doubtForm.querySelector('button[type=submit]');
@@ -615,7 +590,7 @@
       ui.doubtList.scrollTop = ui.doubtList.scrollHeight;
       ui.doubtFeedback.textContent = 'Duda guardada.';
     } catch (_) { ui.doubtFeedback.textContent = 'No se pudo guardar. Conserva el texto y vuelve a intentarlo.'; }
-    finally { submit.disabled = sessionClosed; }
+    finally { submit.disabled = false; }
   });
   $('copy-doubts').addEventListener('click', async () => {
     await requestChain;
@@ -633,7 +608,6 @@
   });
   $('download-doubts').addEventListener('click', () => { downloadMarkdown(makeNotes(), 'dudas.md'); ui.doubtFeedback.textContent = 'Descarga preparada.'; });
   $('clear-doubts').addEventListener('click', async () => {
-    if (sessionClosed || sessionClosing) return;
     const button = $('clear-doubts');
     if (button.disabled) return;
     button.disabled = true;
@@ -647,7 +621,7 @@
       ui.doubtFeedback.textContent = 'No se pudieron limpiar las dudas. Vuelve a intentarlo.';
     } finally {
       ui.doubtInput.readOnly = false;
-      button.disabled = sessionClosed;
+      button.disabled = false;
       ui.doubtInput.focus({ preventScroll: true });
     }
   });
@@ -660,7 +634,6 @@
   });
   $('download-export').addEventListener('click', () => { downloadMarkdown(ui.exportText.value, 'lectura-proyecto.md'); ui.exportFeedback.textContent = 'Descarga preparada.'; });
   $('home-button').addEventListener('click', () => openPhase(0));
-  $('pause-button').addEventListener('click', closeSession);
 
   start();
 })();

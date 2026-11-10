@@ -17,23 +17,21 @@
       <span id="save-status" class="save-status" role="status" aria-live="polite">Conectando…</span>
       <button class="button button-quiet" id="doubts-open" type="button">Mis dudas <span id="doubt-count" class="count-badge">0</span></button>
       <button class="button button-outline" id="export-button" type="button">Guardar notas</button>
-      <button class="button button-quiet" id="pause-button" type="button">Pausar y salir</button>
     </div>
   </header>
   <main class="workspace" id="workspace" aria-busy="true">
-    <aside class="sidebar" aria-label="Contenido de la guía">
+    <aside class="sidebar" aria-label="Contenido de la guía" tabindex="0">
       <div class="course-kicker">RECORRIDO DE LECTURA</div>
       <h1 class="course-title" id="course-title">Recorrido guiado</h1>
       <p class="course-objective" id="course-objective"></p>
-      <div class="progress-label"><span>Fases leídas</span><span id="progress-text">0 / 0</span></div>
+      <div class="progress-label"><span>Fases comprendidas</span><span id="progress-text">0 / 0</span></div>
       <div class="progress-track" aria-hidden="true"><span id="progress-fill"></span></div>
       <nav id="phase-nav" class="phase-nav" aria-label="Fases"></nav>
-      <div class="sidebar-foot"><span class="status-dot" aria-hidden="true"></span> Lectura local · avance guardado</div>
     </aside>
     <section class="reader-column" aria-label="Lector">
       <div class="reader-toolbar">
         <div class="breadcrumbs"><span>GUÍA</span><span aria-hidden="true">/</span><span id="crumb-phase">CARGANDO</span></div>
-        <button id="read-button" class="button button-small button-outline" type="button">Marcar fase leída</button>
+        <button id="read-button" class="button button-small button-outline" type="button" aria-pressed="false">Marcar como comprendida</button>
       </div>
       <article id="reader" class="reader" tabindex="-1" aria-live="polite" aria-label="Contenido de la fase"></article>
       <footer class="reader-footer">
@@ -52,8 +50,8 @@
     </aside>
   </main>
   <dialog id="export-dialog" class="dialog export-dialog" aria-labelledby="export-title">
-    <form method="dialog" class="dialog-head"><div><h2 id="export-title">Guardar tu lectura</h2></div><button class="icon-button" aria-label="Cerrar" value="close">×</button></form>
-    <div class="dialog-body"><p class="dialog-intro">Este resumen reúne las fases leídas y tus dudas. Descárgalo o cópialo para conservarlo.</p><textarea id="export-text" class="export-text" readonly rows="14" aria-label="Resumen exportable"></textarea><div class="copy-row"><button id="copy-export" class="button button-primary" type="button">Copiar resumen</button><button id="download-export" class="button button-outline" type="button">Descargar Markdown</button></div><p id="export-feedback" class="feedback" role="status" aria-live="polite"></p></div>
+    <form method="dialog" class="dialog-head"><div><h2 id="export-title">Guardar tus notas</h2></div><button class="icon-button" aria-label="Cerrar" value="close">×</button></form>
+    <div class="dialog-body"><p class="dialog-intro">Este resumen reúne las fases comprendidas y tus dudas. Descárgalo o cópialo para conservarlo.</p><textarea id="export-text" class="export-text" readonly rows="14" aria-label="Resumen exportable"></textarea><div class="copy-row"><button id="copy-export" class="button button-primary" type="button">Copiar resumen</button><button id="download-export" class="button button-outline" type="button">Descargar Markdown</button></div><p id="export-feedback" class="feedback" role="status" aria-live="polite"></p></div>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>

@@ -97,7 +97,7 @@ class TutorApp:
                     *wrap(report(self.lesson, self.state), width)]
         if self.view == "index":
             return ["ELIGE UNA FASE", "", "Usa las flechas y pulsa Enter para abrirla.",
-                    "Volver a una fase conserva tus preguntas y las fases ya leídas.", "",
+                    "Volver a una fase conserva tus preguntas y las fases comprendidas.", "",
                     *[f"{'>' if i == self.index_cursor else ' '} {i + 1:>2}. {phase['title']}"
                       for i, phase in enumerate(self.lesson["phases"])]]
         if self.view == "files":
@@ -148,7 +148,8 @@ class TutorApp:
             paragraph("¿QUÉ PRODUCE AL EJECUTARSE?", story["result"])
         elif story.get("transfer"):
             paragraph("CIERRE DE LA GUÍA ANTERIOR", story["transfer"])
-        lines.extend(["Dudas opcionales: pulsa D para anotar una y seguir leyendo.",
+        lines.extend(["Pulsa C para marcar o desmarcar esta fase como comprendida.",
+                      "Dudas opcionales: pulsa D para anotar una y seguir leyendo.",
                       "Enter abre el código completo. ←/→ cambia de fase."])
         return lines
 
@@ -262,8 +263,6 @@ class TutorApp:
             self.scroll = 0
         else:
             index = self.phase_index
-            if self.phase["id"] not in self.state["completed"]:
-                self.state["completed"].append(self.phase["id"])
             self.state["section"] = 0
             if index + 1 == len(self.lesson["phases"]):
                 self.state["phase"] = None
@@ -271,7 +270,7 @@ class TutorApp:
                 self.save()
             else:
                 self.jump(index + 1)
-            self.note = "Fase leída. Avance y dudas guardados."
+            self.note = "Avance y dudas guardados. C marca o desmarca la comprensión."
         return True
 
     def edit(self, key) -> bool:
@@ -355,6 +354,15 @@ class TutorApp:
             elif key in ("m", "M"):
                 self.motion = not self.motion
                 self.note = "Animaciones activadas." if self.motion else "Animaciones desactivadas. El contenido permanece visible."
+            elif key in ("c", "C") and self.view == "lesson" and self.state["phase"] is not None:
+                phase_id = self.phase["id"]
+                if phase_id in self.state["completed"]:
+                    self.state["completed"] = [item for item in self.state["completed"] if item != phase_id]
+                    self.note = "Fase desmarcada como comprendida."
+                else:
+                    self.state["completed"].append(phase_id)
+                    self.note = "Fase marcada como comprendida."
+                self.save()
             elif key in ("d", "D") and self.state["phase"] is not None:
                 self.view, self.ask, self.scroll = "lesson", True, 0
                 self.draft, self.cursor = "", 0

@@ -190,6 +190,8 @@ class Validator:
                 self.text(entry.get("explanation"), f"{label}.explanation")
         if index == 0:
             request = story.get("request")
+            if "result" in story and not story.get("glossary"):
+                self.error(f"{where}.story.glossary: crea el marco teórico y glosario inicial antes del recorrido técnico.")
             if isinstance(request, str) and len(request.strip()) < 160:
                 self.error(
                     f"{where}.story.request: el pedido inicial es demasiado breve; "

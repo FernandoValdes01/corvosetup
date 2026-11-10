@@ -62,10 +62,10 @@ La primera fase no es una introducción: reconstruye el pedido y su contexto. Se
   ],
   "files": ["README.md"],
   "story": {
-    "request": "El pedido original en 2–4 frases: quién, qué y para qué.",
+    "request": "El pedido original en 2–4 frases: quién, qué y para qué. Presenta el problema antes del marco teórico.",
     "interpretation": "Desarrollo del contexto: problema, implicaciones, restricciones, supuestos y criterio de éxito. No una frase.",
     "glossary": [
-      { "term": "Criterio de aceptación", "explanation": "Una condición comprobable para decidir si cumplimos el pedido. Aquí sería que dos personas editen sin perder cambios y que quede registro de quién los hizo." }
+      { "term": "Criterio de aceptación", "explanation": "Una condición comprobable para decidir si cumplimos el pedido. En este proyecto, por ejemplo, puede ser que dos personas editen sin perder cambios y que quede registro de quién los hizo; el concepto guía qué comportamiento verificar." }
     ],
     "decision": "Cómo se delimitó el alcance y por qué se priorizó eso.",
     "alternatives": [
@@ -84,7 +84,7 @@ Reglas de esta fase:
 
 - `story.request` abre el tema; no es el brief completo. El visor lo muestra como entradilla.
 - `story.interpretation` desarrolla qué implica el pedido: problema, dependencias, restricciones, supuestos y criterio de éxito.
-- `story.glossary` introduce los conceptos necesarios después de presentar el problema. Cada término tiene una explicación simple y un ejemplo del proyecto. Repite esos conceptos en un bloque de `sections` para el modo texto, sin crear otra fase genérica.
+- `story.glossary` es obligatorio en la fase inicial y aparece después de presentar el problema. Es el marco teórico amplio que prepara al lector: incluye conceptos previos relevantes, ordenados de prerrequisitos a avanzados, sin límite arbitrario de términos y sin huecos evitables. Conserva exactamente `{term, explanation}`. Cada explicación cubre definición, mecanismo o idea central, papel en el proyecto y ejemplo concreto; evita relleno y conceptos ajenos al proyecto. Repite el contenido en `sections` para el modo texto, dentro de la misma fase del encargo y sin crear otra fase genérica.
 - `sections` alimenta el modo texto y la exportación; usá al menos tres bloques distintos. No dejes el contexto solo ahí: el visor web prioriza `story`.
 - `story.walkthrough` puede citar documentación, `README`, issues o pruebas; no necesita código.
 - Si el pedido original no está en el repositorio, decilo en `story.difficulties` o `story.interpretation` y marcá qué es inferido.

@@ -88,6 +88,8 @@ def install(project: Path) -> None:
         else "Los artefactos ya estaban ignorados en .gitignore."
     )
     print("Conservados: tutorial.json, diagramas/ y .teach/state/.")
+    print("Siguiente: reconstruye el encargo, escribe tutorial.json y ejecuta validate_tutorial.py.")
+    print("No respondas con un resumen: el entregable es el visor, no el chat.")
 
 
 def main() -> int:

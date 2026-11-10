@@ -72,6 +72,16 @@ def main() -> int:
             status, body = request("GET", "/api/export")
             assert status == 200 and "¿Cómo se comprueba esta parte?" in body.decode(), "la exportación no incluye la duda"
 
+            for _ in range(2):
+                status, body = request("POST", "/api/action", {"action": "uncomplete", "phase": phase})
+                assert status == 200, f"uncomplete respondió {status}"
+                unchecked = json.loads(body)["state"]
+                assert unchecked["completed"] == [], "desmarcar no quitó la comprensión"
+                assert len(unchecked["doubts"]) == 1, "desmarcar borró dudas"
+                assert unchecked["reader"]["scroll"] == 120, "desmarcar alteró la posición"
+            status, body = request("POST", "/api/action", {"action": "complete", "phase": phase})
+            assert status == 200, "no se pudo volver a marcar la comprensión"
+
             status, body = request("POST", "/api/action", {"action": "clear_doubts"})
             assert status == 200, f"clear_doubts respondió {status}"
             cleared = json.loads(body)["state"]
@@ -94,7 +104,7 @@ def main() -> int:
             server.server_close()
             return 1
 
-    print(f"OK: bootstrap, duda, exportación, limpieza y cierre funcionan ({len(phases)} fases).")
+    print(f"OK: bootstrap, comprensión reversible, duda, exportación, limpieza y cierre funcionan ({len(phases)} fases).")
     return 0
 
 
