@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "snapshot": "2026-10-24",
+  "snapshot": "2026-11-10",
   "skills": [
     {
       "name": "android-mobile",
@@ -9,17 +9,22 @@
     },
     {
       "name": "ask-matt",
-      "source": "~/.codex/skills/ask-matt",
+      "source": "~/.agents/skills/ask-matt",
       "files": 3
     },
     {
+      "name": "brag",
+      "source": "~/.codex/skills/brag",
+      "files": 24
+    },
+    {
       "name": "code-review",
-      "source": "~/.codex/skills/code-review",
+      "source": "~/.agents/skills/code-review",
       "files": 2
     },
     {
       "name": "codebase-design",
-      "source": "~/.codex/skills/codebase-design",
+      "source": "~/.agents/skills/codebase-design",
       "files": 4
     },
     {
@@ -28,13 +33,18 @@
       "files": 2
     },
     {
+      "name": "council",
+      "source": "~/.codex/skills/council",
+      "files": 1
+    },
+    {
       "name": "design-taste-frontend",
       "source": "~/.codex/skills/design-taste-frontend",
       "files": 2
     },
     {
       "name": "diagnosing-bugs",
-      "source": "~/.codex/skills/diagnosing-bugs",
+      "source": "~/.agents/skills/diagnosing-bugs",
       "files": 3
     },
     {
@@ -44,13 +54,13 @@
     },
     {
       "name": "domain-modeling",
-      "source": "~/.codex/skills/domain-modeling",
+      "source": "~/.agents/skills/domain-modeling",
       "files": 4
     },
     {
       "name": "drawio",
-      "source": "~/.codex/plugins/cache/drawio/drawio/1.2.2/skills/drawio",
-      "files": 1
+      "source": "~/.codex/plugins/cache/drawio/drawio/1.2.6/skills/drawio",
+      "files": 2
     },
     {
       "name": "drawio-edit",
@@ -63,18 +73,23 @@
       "files": 1
     },
     {
+      "name": "firefox-local",
+      "source": "~/.codex/skills/firefox-local",
+      "files": 3
+    },
+    {
       "name": "grill-me",
-      "source": "~/.codex/skills/grill-me",
+      "source": "~/.agents/skills/grill-me",
       "files": 2
     },
     {
       "name": "grill-with-docs",
-      "source": "~/.codex/skills/grill-with-docs",
+      "source": "~/.agents/skills/grill-with-docs",
       "files": 2
     },
     {
       "name": "handoff",
-      "source": "~/.codex/skills/handoff",
+      "source": "~/.agents/skills/handoff",
       "files": 2
     },
     {
@@ -129,7 +144,7 @@
     },
     {
       "name": "research",
-      "source": "~/.codex/skills/research",
+      "source": "~/.agents/skills/research",
       "files": 2
     },
     {
@@ -143,13 +158,23 @@
       "files": 2
     },
     {
+      "name": "scrapling-official",
+      "source": "~/.codex/skills/scrapling-official",
+      "files": 25
+    },
+    {
+      "name": "security-audit",
+      "source": "~/.codex/skills/security-audit",
+      "files": 20
+    },
+    {
       "name": "teachme",
       "source": "~/.codex/skills/teachme",
-      "files": 14
+      "files": 15
     },
     {
       "name": "to-tickets",
-      "source": "~/.codex/skills/to-tickets",
+      "source": "~/.agents/skills/to-tickets",
       "files": 2
     },
     {
@@ -162,6 +187,8 @@
     "quality-agents": "Legacy snapshot; disabled in Codex and denied in OpenCode. Use current client agent profiles.",
     "review-ti2-pr": "Private project context excluded and replaced with local documentation pointers.",
     "system-skills": "Built into Codex; not copied from installation cache.",
-    "plugins": "OAuth and cached connector bundles must be reconnected per device."
+    "plugins": "OAuth and cached connector bundles must be reconnected per device.",
+    "brag": "Bundled music and sound effects are excluded until their redistribution license is verified; the skill continues without them.",
+    "firefox-local": "Server source lives in apps/firefox-mcp; personal shortcut lists and local backups are excluded."
   }
 }
