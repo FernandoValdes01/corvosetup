@@ -7,7 +7,7 @@ CorvoSetup restaura archivos públicos de configuración mediante módulos separ
 - Arch/CachyOS con acceso a Internet y cuenta de usuario normal.
 - T3 Code instalado aparte desde una fuente AUR. CorvoSetup respalda su configuración, no empaqueta la aplicación.
 - Niri 26.04 con soporte de blur para el efecto glass de T3. La versión figura como referencia en `packages/current-versions.txt`; el repositorio rolling puede ofrecer otra versión.
-- Para MCP, Python 3.11 o posterior y Node.js/npm. Packet Tracer requiere Cisco Packet Tracer instalado aparte. Las herramientas JFLAP que procesan archivos `.jff` funcionan sin JAR; Java y el JAR solo hacen falta para abrir la interfaz gráfica. Define `JFLAP_HOME`, `JFLAP_JAR` o `JFLAP_LAUNCHER` si sus rutas difieren de los valores predeterminados.
+- Para MCP, Python 3.11 o posterior y Node.js/npm. Node.js 22 o posterior para YouTube Research. Packet Tracer requiere Cisco Packet Tracer instalado aparte; Firefox personal requiere Firefox abierto con `--remote-debugging-port 9222`, y `lightcraft-app` requiere la ventana de LightCraft abierta. Las herramientas JFLAP que procesan archivos `.jff` funcionan sin JAR; Java y el JAR solo hacen falta para abrir la interfaz gráfica. Define `JFLAP_HOME`, `JFLAP_JAR` o `JFLAP_LAUNCHER` si sus rutas difieren de los valores predeterminados.
 - Docker, LaTeX y Android SDK/AVD se instalan aparte si tus proyectos los necesitan. El repo no contiene estos binarios ni software propietario.
 
 ## Clonar y revisar
@@ -75,6 +75,10 @@ El módulo `mcp` incluye FilmCraft 0.14.0 para Linux x86_64, verificado por SHA2
 Los módulos `skills` y `agents` restauran la skill auto invocable y su conexión MCP.
 Para instalar solo FilmCraft, requisitos de análisis y pruebas aisladas, consulta
 [el setup de video](filmcraft.md). No se instalan los otros editores de la familia Craft.
+
+## LightCraft, Scrapling, Firefox y YouTube
+
+El módulo `mcp` también instala LightCraft 0.19.0 para Linux x86_64, verificado por SHA256, con dos MCP: `lightcraft` (sin interfaz) y `lightcraft-app` (controla la ventana abierta en `127.0.0.1:7980`, configurable con `LIGHTCRAFT_APP_ADDRESS`). Scrapling 0.5.1 se instala en su propio entorno con dependencias fijadas y descarga sus navegadores con `scrapling install`. El MCP de Firefox personal usa el código de `apps/firefox-mcp`. YouTube Research se ejecuta con `npx` fijado a `@coyasong/youtube-mcp-server@2.0.0`.
 
 ## PhotoCraft y referencias visuales
 

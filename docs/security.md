@@ -19,6 +19,10 @@ Las versiones MCP quedan fijadas en `config/mcp/`:
 | JFLAP | Código local del repo, `jflap-mcp` `0.1.0`; las herramientas de archivos `.jff` funcionan sin JAR. Java/JAR solo se requieren para abrir la interfaz gráfica. |
 | Packet Tracer | Paquete PyPI `packet-tracer-mcp` `0.9.0`; Cisco Packet Tracer se instala aparte. |
 | Draw.io | `@drawio/mcp` `1.7.0` con integridad npm registrada. |
+| LightCraft | Release oficial `0.19.0` de `storytold/lightcraft` con SHA256 en `config/mcp/lightcraft.json`. |
+| Scrapling | PyPI `scrapling` `0.5.1` y dependencias fijadas en `config/mcp/scrapling-requirements.txt`. |
+| Firefox personal | Código local del repo en `apps/firefox-mcp`, dependencias en `config/mcp/firefox-requirements.txt`. Solo escucha WebDriver BiDi en `127.0.0.1`; no extrae contraseñas. |
+| YouTube Research | npm `@coyasong/youtube-mcp-server` `2.0.0` (MIT). `YOUTUBE_API_KEY` es opcional y se hereda del entorno. |
 
 Linear usa OAuth remoto. La skill Draw.io empaquetada se conserva en `skills/drawio`; su servidor MCP se instala aparte del cliente. Los conectores remotos, plugins y credenciales requieren activación de nuevo por usuario.
 
