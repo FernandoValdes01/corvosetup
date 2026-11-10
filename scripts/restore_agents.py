@@ -177,7 +177,8 @@ def dump_toml(data):
 
 def restore_skills(home):
     library = home / ".local/share/corvosetup/skills"
-    for directory in [library, home / ".agents/skills", home / ".codex/skills", home / ".config/opencode/skills"]:
+    clients = [".agents/skills", ".codex/skills", ".config/opencode/skills", ".claude/skills"]
+    for directory in [library, *(home / client for client in clients)]:
         check_parents(directory / ".preflight")
     for source in sorted((ROOT / "skills").iterdir()):
         if not (source / "SKILL.md").is_file():
@@ -186,14 +187,16 @@ def restore_skills(home):
         for path in sorted(source.rglob("*")):
             if path.is_file():
                 write(target / path.relative_to(source), render(path.read_text(), home), path.stat().st_mode & 0o777)
-        for client in [".agents/skills", ".codex/skills", ".config/opencode/skills"]:
+        for client in clients:
             link(target, home / client / source.name)
 
 
 def restore_agents(home):
     codex_path = home / ".codex/config.toml"
+    claude_path = home / ".claude.json"
     check_parents(codex_path)
     check_parents(home / ".config/opencode/opencode.jsonc")
+    check_parents(home / ".claude/CLAUDE.md")
     managed = tomllib.loads(render((ROOT / "config/codex/config.toml").read_text(), home))
     existing = tomllib.loads(codex_path.read_text()) if codex_path.exists() else {}
     # Keep unrelated user skill overrides as well as private MCP credentials.
@@ -215,9 +218,18 @@ def restore_agents(home):
     managed_json["skills"]["paths"] = list(dict.fromkeys(paths + managed_json["skills"]["paths"]))
     opencode_content = json.dumps(merge(existing_json, managed_json), ensure_ascii=False, indent=2) + "\n"
 
-    # Validate all input configurations before writing either one.
+    # ~/.claude.json also holds Claude Code's login and project state: only mcpServers is managed.
+    claude = json.loads(claude_path.read_text()) if claude_path.exists() else {}
+    if not isinstance(claude, dict):
+        raise ValueError("Unexpected Claude Code configuration")
+    managed_claude = json.loads(render((ROOT / "config/claude/mcp.json").read_text(), home))
+    claude_content = json.dumps(merge(claude, managed_claude), ensure_ascii=False, indent=2) + "\n"
+
+    # Validate all input configurations before writing any of them.
     write(codex_path, codex_content, 0o600)
     write(opencode_path, opencode_content, 0o600)
+    write(claude_path, claude_content, 0o600)
+    write(home / ".claude/CLAUDE.md", render((ROOT / "config/claude/CLAUDE.md").read_text(), home))
     for client, directory in [("codex", home / ".codex"), ("opencode", opencode_base)]:
         source = ROOT / "config" / client
         for path in source.rglob("*"):

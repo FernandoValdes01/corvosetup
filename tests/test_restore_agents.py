@@ -179,6 +179,40 @@ class RestoreAgentsTests(unittest.TestCase):
             self.assertEqual(external.read_text(encoding="utf-8"), secret)
             self.assertEqual((library / "jflap/SKILL.md").is_file(), True)
 
+    def test_claude_code_keeps_login_state_and_receives_public_mcp(self):
+        secret = "synthetic" + "-claude" + "-oauth-61"
+        with tempfile.TemporaryDirectory() as temp_dir:
+            home = Path(temp_dir)
+            claude = home / ".claude.json"
+            claude.write_text(json.dumps({
+                "oauthAccount": {"token": secret},
+                "projects": {"/private/project": {"allowedTools": []}},
+                "mcpServers": {"private-linear": {"type": "http", "url": "https://example.invalid", "headers": {"Authorization": secret}}},
+            }), encoding="utf-8")
+            (home / ".claude").mkdir()
+            (home / ".claude/CLAUDE.md").write_text("local notes", encoding="utf-8")
+
+            result = run_restore(home)
+
+            saved = json.loads(claude.read_text(encoding="utf-8"))
+            self.assertEqual(saved["oauthAccount"]["token"], secret)
+            self.assertIn("/private/project", saved["projects"])
+            self.assertEqual(saved["mcpServers"]["private-linear"]["headers"]["Authorization"], secret)
+            self.assertEqual(saved["mcpServers"]["scrapling"]["command"], str(home / ".local/bin/corvosetup-mcp-scrapling"))
+            self.assertNotIn("packet-tracer", saved["mcpServers"])
+            self.assertEqual(claude.stat().st_mode & 0o777, 0o600)
+            self.assertEqual((home / ".claude/CLAUDE.md").read_text(encoding="utf-8"), (ROOT / "config/claude/CLAUDE.md").read_text(encoding="utf-8"))
+            self.assertEqual((home / ".claude/CLAUDE.md.corvosetup.bak").read_text(encoding="utf-8"), "local notes")
+            self.assertNotIn(secret, result.stdout + result.stderr)
+
+    def test_claude_skills_link_to_shared_library(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            home = Path(temp_dir)
+            run_restore(home, "skills")
+            link = home / ".claude/skills/teachme"
+            self.assertTrue(link.is_symlink())
+            self.assertEqual(link.resolve(), (home / ".local/share/corvosetup/skills/teachme").resolve())
+
 
 if __name__ == "__main__":
     unittest.main()

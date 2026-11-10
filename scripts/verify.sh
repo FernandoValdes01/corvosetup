@@ -40,12 +40,14 @@ check 'Configuracion de Limine instalada' test -f /etc/default/limine
 check 'Configuracion Codex instalada' test -f "$HOME/.codex/config.toml"
 check 'Instrucciones Codex instaladas' test -f "$HOME/.codex/AGENTS.md"
 check 'Configuracion OpenCode instalada' test -f "$HOME/.config/opencode/opencode.jsonc"
+check 'Instrucciones Claude Code instaladas' test -f "$HOME/.claude/CLAUDE.md"
 check 'Cliente Codex disponible' command -v codex
 check 'Cliente OpenCode disponible' command -v opencode
 for skill in i-have-adhd ponytail impeccable playwright-skill jflap; do
     check "Skill compartida $skill enlazada" test "$HOME/.codex/skills/$skill" -ef "$HOME/.agents/skills/$skill"
+    check "Skill $skill enlazada en Claude Code" test "$HOME/.claude/skills/$skill" -ef "$HOME/.agents/skills/$skill"
 done
-for server in jflap packet-tracer drawio; do
+for server in jflap packet-tracer drawio filmcraft photocraft lightcraft lightcraft-app scrapling firefox-local youtube-research; do
     check "Lanzador MCP $server instalado" test -x "$HOME/.local/bin/corvosetup-mcp-$server"
 done
 check 'Alacritty configurado' test -f "$HOME/.config/alacritty/alacritty.toml"

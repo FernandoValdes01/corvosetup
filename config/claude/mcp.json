@@ -1,0 +1,53 @@
+{
+  "mcpServers": {
+    "linear": {
+      "type": "http",
+      "url": "https://mcp.linear.app/mcp"
+    },
+    "jflap": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-jflap",
+      "args": []
+    },
+    "drawio": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-drawio",
+      "args": []
+    },
+    "filmcraft": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-filmcraft",
+      "args": []
+    },
+    "photocraft": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-photocraft",
+      "args": []
+    },
+    "scrapling": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-scrapling",
+      "args": []
+    },
+    "firefox-local": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-firefox-local",
+      "args": []
+    },
+    "youtube-research": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-youtube-research",
+      "args": []
+    },
+    "lightcraft": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-lightcraft",
+      "args": []
+    },
+    "lightcraft-app": {
+      "type": "stdio",
+      "command": "@HOME@/.local/bin/corvosetup-mcp-lightcraft-app",
+      "args": []
+    }
+  }
+}
