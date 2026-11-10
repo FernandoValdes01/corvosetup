@@ -6,3 +6,8 @@ useDefault = true
 [[allowlists]]
 description = "Generated dependencies are excluded from the public snapshot and checked by file policy"
 paths = ['''(^|/)(\.venv|node_modules|__pycache__|\.git)/''']
+
+[[allowlists]]
+description = "Documentation placeholders such as <your-token> are not credentials"
+regexTarget = "match"
+regexes = ['''<?your-[a-z-]+>["']?''']
