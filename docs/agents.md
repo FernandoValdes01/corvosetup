@@ -1,12 +1,12 @@
 # Agentes y skills
 
-El repo conserva 38 skills en `skills/`. El módulo `skills` las instala en `~/.local/share/corvosetup/skills` y crea enlaces en `~/.agents/skills`, `~/.codex/skills`, `~/.config/opencode/skills` y `~/.claude/skills`. Las rutas `@HOME@` de las plantillas se renderizan al restaurar.
+El repo conserva 37 skills en `skills/`. El módulo `skills` las instala en `~/.local/share/corvosetup/skills` y crea enlaces en `~/.agents/skills`, `~/.codex/skills`, `~/.config/opencode/skills` y `~/.claude/skills`. Las rutas `@HOME@` de las plantillas se renderizan al restaurar.
 
 Los perfiles Codex viven en `config/codex/agents/` e incluyen roles Luna y Sol. Los perfiles de calidad OpenCode viven en `config/opencode/agents/`. `scripts/restore_agents.py` fusiona las configuraciones gestionadas con `~/.codex/config.toml`, `~/.config/opencode/opencode.jsonc` y `opencode.json`, conservando claves ajenas y credenciales existentes. Para Claude Code solo gestiona `mcpServers` dentro de `~/.claude.json` (el resto del archivo, con su sesión y proyectos, se conserva con modo `0600`) e instala `~/.claude/CLAUDE.md` desde `config/claude/`. Cierra Claude Code antes de restaurar, porque reescribe `~/.claude.json` mientras está abierto. Las definiciones de agentes compartidas se mantienen en `config/codex/` y `config/opencode/`.
 
 El módulo `agents` instala Codex CLI `0.162.1` y OpenCode `1.19.0` desde el lockfile solo cuando falta uno de esos clientes. Si ya están ambos disponibles, mantiene las versiones instaladas. La configuración y los binarios son piezas separadas.
 
-La skill `quality-agents` se conserva como legado y queda desactivada en Codex y denegada en OpenCode; los perfiles de calidad configurados son el camino activo. La skill `brag` se publica sin su música ni efectos de sonido, porque su licencia de redistribución no está verificada; funciona sin ellos o con audio propio. La skill `firefox-local` usa el servidor de `apps/firefox-mcp`. La skill `review-ti2-pr` depende de referencias de contexto propias del proyecto. Comprueba que ese material esté disponible en el equipo destino y no añadas URLs, datos de PR ni credenciales al snapshot público.
+La skill `quality-agents` se conserva como legado y queda desactivada en Codex y denegada en OpenCode; los perfiles de calidad configurados son el camino activo. La skill `brag` se publica sin su música ni efectos de sonido, porque su licencia de redistribución no está verificada; funciona sin ellos o con audio propio. La skill `firefox-local` usa el servidor de `apps/firefox-mcp`.
 
 ## Restaurar
 

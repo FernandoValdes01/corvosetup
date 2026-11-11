@@ -153,11 +153,6 @@
       "files": 7
     },
     {
-      "name": "review-ti2-pr",
-      "source": "~/Documentos/github/ceretime/.agents/skills/review-ti2-pr",
-      "files": 2
-    },
-    {
       "name": "scrapling-official",
       "source": "~/.codex/skills/scrapling-official",
       "files": 25
@@ -185,7 +180,6 @@
   ],
   "notes": {
     "quality-agents": "Legacy snapshot; disabled in Codex and denied in OpenCode. Use current client agent profiles.",
-    "review-ti2-pr": "Private project context excluded and replaced with local documentation pointers.",
     "system-skills": "Built into Codex; not copied from installation cache.",
     "plugins": "OAuth and cached connector bundles must be reconnected per device.",
     "brag": "Bundled music and sound effects are excluded until their redistribution license is verified; the skill continues without them.",
